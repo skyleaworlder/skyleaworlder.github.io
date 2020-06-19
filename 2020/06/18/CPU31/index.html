@@ -144,7 +144,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/06/18/CPU31/img/5-25.png">
 <meta property="og:image" content="http://yoursite.com/2020/06/18/CPU31/img/5-26.png">
 <meta property="article:published_time" content="2020-06-18T15:31:27.000Z">
-<meta property="article:modified_time" content="2020-06-19T12:10:56.619Z">
+<meta property="article:modified_time" content="2020-06-19T12:22:18.648Z">
 <meta property="article:author" content="skyleaworlder">
 <meta property="article:tag" content="OS">
 <meta name="twitter:card" content="summary">
@@ -388,7 +388,7 @@
 <p><img src="./img/5-1.png" alt="5-1"></p>
 <p><img src="./img/5-2.png" alt="5-2"></p>
 <p>并且还需要格外注意两个点：</p>
-<p><strong>Mars 中 PC 从 0x0040_0000 开始</strong>，这意味着取指令要从这个地址开始，而不是想当然的 0x0000_0000。<br>这其实是因为 Mars 模拟器模拟的是 mips 体系结构。<br>咱们大一暑假的时候马马虎虎学过两周的汇编，那个汇编是 x86 汇编，和现在要用的这个 mips 是不一样的。<br>mips 在程序执行前，也会把内存单元划分成几个小段，其中 0x0040_0000 是 <strong>代码段的首地址</strong>（可能有错，不过我是这么理解的）。<br><strong>同时，这也意味着，PC 和 指令寄存器 的首地址要做一个映射。</strong> 比如：</p>
+<p><strong>Mars 中 PC 从 0x0040_0000 开始</strong>，这意味着取指令要从这个地址开始，而不是想当然的 0x0000_0000。<br>这其实是因为 Mars 模拟器模拟的是 mips 体系结构。<br>咱们大一暑假的时候马马虎虎学过两周的汇编，那个汇编是 x86 汇编，和现在要用的这个 mips 是不一样的。<br>mips 在程序执行前，也会把内存单元划分成几个小段，其中 0x0040_0000 是 <strong>代码段的首地址</strong>（可能有错，不过我是这么理解的）。<br><strong>同时，这也意味着，PC 和 指令存储器 的首地址要做一个映射。</strong> 比如：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] PC, instruction_addr;</span><br><span class="line"><span class="comment">// code, code, code...</span></span><br><span class="line"><span class="keyword">assign</span> instruction_addr = PC - <span class="number">32'h0040_0000</span>;</span><br></pre></td></tr></table></figure>
 
 <p><strong>Mars 中 DMEM 从 0x1001_0000 开始</strong>，这就好理解多了，说明这个地址是 Mars 模拟下的数据存储器的首地址。<br>把读写数据的地址，和传入的数据进行一个映射就可以了。</p>
@@ -570,7 +570,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PC -&gt; IMEM</span><br><span class="line">PC[31:28] -&gt; ||_A</span><br><span class="line">IMEM[25,0] || 02 -&gt; ||_B</span><br><span class="line"></span><br><span class="line">||_out -&gt; MUX</span><br><span class="line">PC + 4 -&gt; NPC</span><br><span class="line">NPC -&gt; MUX</span><br><span class="line">MUX_out -&gt; PC</span><br><span class="line"></span><br><span class="line">PC -&gt; ADD</span><br><span class="line">8 -&gt; ADD</span><br><span class="line">ADD_out -&gt; Rd</span><br></pre></td></tr></table></figure>
 
 <p>这个指令并不复杂，只是为了实现这个指令，未来的控制信号多了点。<br>相信经过了前面 30 条指令的考验，这条指令并不难理解。</p>
-<h4 id="32-CPU31"><a href="#32-CPU31" class="headerlink" title="32. CPU31"></a>32. CPU31</h4><p>那么我们在此基础之上，通过适当组合，可以得到总的数据通路图：</p>
+<h4 id="32-CPU31"><a href="#32-CPU31" class="headerlink" title="32. CPU31"></a>32. CPU31</h4><p>其实上面的有些数据通路画错了，特别是 ALU 的 ALUC，有很多指令，比如 addi 和 add，他们是共用一个 ALUC 的，只是我一开始理解不够深刻，所以画错了，并且还保存了起来。之后想要再做修改实在是困难麻烦。<br>那么我们在此基础之上，通过适当组合，可以得到总的数据通路图：</p>
 <p><img src="./img/CPU31.jpg" alt="cpu31"></p>
 <p>组合它们的这个过程并不难，花费时间最多的地方在于调整每个箭头的位置……</p>
 <h3 id="四、控制信号"><a href="#四、控制信号" class="headerlink" title="四、控制信号"></a>四、控制信号</h3><p>经过刚才的拼接，CPU31 的通路图已经得到了。<br>那么需要做些说明：</p>
@@ -586,12 +586,12 @@
 <p>根据这个信号表，我们可以实现 CPU 模块的控制信号部分。</p>
 <h3 id="五、从开始到现在"><a href="#五、从开始到现在" class="headerlink" title="五、从开始到现在"></a>五、从开始到现在</h3><p>从开始到现在，看了 IP 核的配置，调试工具的使用，指令流程，数据通路，控制信号。<br>准备得如此充分，我们肯定可以实现些什么了。</p>
 <ol>
-<li>用了 IP 核的配置能力，我们可以先把 IMEM 写出来；</li>
+<li>有了配置 IP 核的能力，我们可以先把 IMEM 写出来；</li>
 <li>对各指令流程的了解，我们可以写出 ALU；</li>
 <li>有了控制信号表，我们可以写出 Controller；</li>
 <li>介于对 Mars 的理解，我们得知 DMEM 和 Regfile 的大体模样（可见前图），我们可以写出 DMEM 和 Regfile。</li>
 </ol>
-<p>我们知道，机器的 CPU 由运算器、控制器、寄存器组成的。<br><strong>运算器</strong>就是 ALU，<strong>控制器</strong>就是我们的 Controller，<strong>寄存器</strong>是 Regfile。<br>除此之外，在哈佛结构中有两个存储器，分别是 <strong>指令寄存器</strong> IMEM 和 <strong>数据寄存器</strong> DMEM。</p>
+<p>我们知道，机器的 CPU 由运算器、控制器、寄存器组成的。<br><strong>运算器</strong>就是 ALU，<strong>控制器</strong>就是我们的 Controller，<strong>寄存器</strong>是 Regfile。<br>除此之外，在哈佛结构中有两个存储器，分别是 <strong>指令存储器</strong> IMEM 和 <strong>数据存储器</strong> DMEM。</p>
 <p>这么一看，好像 CPU 已经可以写的七七八八了。<br>事实也的确如此。</p>
 <p>我们先假设已经写完了，看看真正的通路图：</p>
 <p><img src="./img/5-17.png" alt="5-17"></p>
