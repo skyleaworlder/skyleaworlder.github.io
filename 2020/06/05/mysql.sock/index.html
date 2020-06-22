@@ -86,17 +86,17 @@
 <meta property="og:site_name" content="遐想的空中宫殿">
 <meta property="og:description" content="哦，这是真的 np。 前言这两天没登服务器，上一周在解决 “tmp&#x2F;mysql.sock” 问题的时候在没考虑任何后果的情况下执行了： 1mysqld  接着服务器就开始拒绝我的连接。用救援窗口一连接，发现 sshd 服务被弄坏了。于是拿出镜像回退。 之后我就以为已经回退到了 5 月 20 号的版本，肯定不会在 MySQL 上出问题了，毕竟 5 月 28 号我还部署了项目，还能开数据库。 现在但的">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2020/06/05/img/4-1.png">
-<meta property="og:image" content="http://yoursite.com/2020/06/05/img/4-2.png">
-<meta property="og:image" content="http://yoursite.com/2020/06/05/img/4-3.png">
-<meta property="og:image" content="http://yoursite.com/2020/06/05/img/4-4.png">
-<meta property="og:image" content="http://yoursite.com/2020/06/05/img/4-5.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/05/mysql.sock/img/4-1.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/05/mysql.sock/img/4-2.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/05/mysql.sock/img/4-3.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/05/mysql.sock/img/4-4.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/05/mysql.sock/img/4-5.png">
 <meta property="article:published_time" content="2020-06-05T14:31:27.000Z">
-<meta property="article:modified_time" content="2020-06-18T15:39:12.777Z">
+<meta property="article:modified_time" content="2020-06-22T11:30:03.849Z">
 <meta property="article:author" content="skyleaworlder">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/06/05/img/4-1.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/05/mysql.sock/img/4-1.png">
 
 
 
@@ -333,7 +333,7 @@
 <p>接着服务器就开始拒绝我的连接。用救援窗口一连接，发现 sshd 服务被弄坏了。<br>于是拿出镜像回退。</p>
 <p>之后我就以为已经回退到了 5 月 20 号的版本，肯定不会在 MySQL 上出问题了，毕竟 5 月 28 号我还部署了项目，还能开数据库。</p>
 <h2 id="现在"><a href="#现在" class="headerlink" title="现在"></a>现在</h2><p>但的确这次必须爆破自己服务器里的数据库了（？），试着连服务器登 MySQL 还是报错，也还是报：</p>
-<p><img src="../img/4-1.png" alt="4-1"></p>
+<p><img src="./img/4-1.png" alt="4-1"></p>
 <p>这个的确没办法了。我到网上找了很多方法，也分析了我服务器和他们给出解决办法对应的环境之间的差别，发现没有一个适合我的。</p>
 <p>首先，我的 /tmp 文件夹下是没有 mysql.sock 这个文件存在的。<br>其次，我反复卸载过 MySQL，目前的 MySQL 版本应该是 8.0。<br>最后，</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name mysql.sock</span><br></pre></td></tr></table></figure>
@@ -343,14 +343,14 @@
 
 <h2 id="但是"><a href="#但是" class="headerlink" title="但是"></a>但是</h2><p>返回告诉我 mysql 是有这个服务的，但是 mysqld 便没有。<br>其实挺奇怪的。也怪我，我现在也不太清楚 mysqld 和 mysql.service 之间的差异，或许它们就是一回事儿？或许它们完全不一样……</p>
 <p>我依稀记得在装载 MySQL 8.0 的时候，安装包把 my.ini 放在了 /etc 文件夹。<br>接着我 cat 了它，修改了里面 socket 的值。</p>
-<p><img src="../img/4-2.png" alt="4-2"></p>
+<p><img src="./img/4-2.png" alt="4-2"></p>
 <p>那两个值可以说是我乱填的，但是我看到：</p>
-<p><img src="../img/4-3.png" alt="4-3"></p>
+<p><img src="./img/4-3.png" alt="4-3"></p>
 <p>可以说 <strong>系统运行的 MySQL 服务</strong> 就是连接着这个 my.ini。（其实也没啥兴奋的，我电脑里就那么几个 my.cnf）</p>
-<p><img src="../img/4-4.png" alt="4-4"></p>
+<p><img src="./img/4-4.png" alt="4-4"></p>
 <p>（docker 的肯定不是，www 的是宝塔，剩下的两个 cat 一下就发现不对劲了，啥配置都没有）</p>
 <p>改成正确的文件夹之后，就可以运行了。（我的 mysqld.sock 在 /var/run/mysqld 里面）</p>
-<p><img src="../img/4-5.png" alt="4-5"></p>
+<p><img src="./img/4-5.png" alt="4-5"></p>
 <p>（忘了 user 表到底叫什么了，没办法，老笨比了）</p>
 
       
@@ -503,6 +503,20 @@
           
 
           
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://huangduligong.com" title="同济之光 信安唯一真神 Eol" target="_blank">同济之光 信安唯一真神 Eol</a>
+                  </li>
+                
+              </ul>
+            </div>
           
 
           
