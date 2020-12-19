@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>创造型模式-Singleton (1) | 遐想的空中宫殿</title><meta name="description" content="创建型模式-Singleton (1) 我相信，真理是越辩越明的。 这句话最重要的是 “辩”，其次才是 “真理”。 说不定哪天发现了更有趣的事情，就又鸽子了。  提问在写代码的时候，总有无穷多种方法解决同一个问题。 即使它们划到最后，道理真的相同、运用的性质、定理真的相同，那么对于一个方法，也一定有无穷多种实现。 正因为问题的答案不仅仅由一种实现才能得出，正因为人的想法千奇百怪，实现的方式千奇百怪"><meta name="keywords" content="读书笔记,设计模式"><meta name="author" content="skyleaworlder"><meta name="copyright" content="skyleaworlder"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/img/skyleaworlder.png"><link rel="canonical" href="http://yoursite.com/2020/12/19/DP-note-1/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="创造型模式-Singleton (1)"><meta property="og:url" content="http://yoursite.com/2020/12/19/DP-note-1/"><meta property="og:site_name" content="遐想的空中宫殿"><meta property="og:description" content="创建型模式-Singleton (1) 我相信，真理是越辩越明的。 这句话最重要的是 “辩”，其次才是 “真理”。 说不定哪天发现了更有趣的事情，就又鸽子了。  提问在写代码的时候，总有无穷多种方法解决同一个问题。 即使它们划到最后，道理真的相同、运用的性质、定理真的相同，那么对于一个方法，也一定有无穷多种实现。 正因为问题的答案不仅仅由一种实现才能得出，正因为人的想法千奇百怪，实现的方式千奇百怪"><meta property="og:image" content="https://refactoring.guru/images/patterns/content/builder/builder-en.png"><meta property="article:published_time" content="2020-12-19T08:02:51.000Z"><meta property="article:modified_time" content="2020-12-19T08:06:51.528Z"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.1',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  bookmark: {
+    message_prev: 'Press',
+    message_next: 'to bookmark this page'
+  },
+  runtime: '',
+  date_suffix: {"one_hour":"Just","hours":"hours ago","day":"days ago"},
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-12-19 16:06:51'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
+
+var autoChangeMode = 'false'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/skyleaworlder.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">16</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">17</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#创建型模式-Singleton-1"><span class="toc-number">1.</span> <span class="toc-text">创建型模式-Singleton (1)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#提问"><span class="toc-number">1.1.</span> <span class="toc-text">提问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Singleton"><span class="toc-number">1.2.</span> <span class="toc-text">Singleton</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#比如-UNIX-V6"><span class="toc-number">1.2.1.</span> <span class="toc-text">比如 UNIX V6++</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#但其实我知道"><span class="toc-number">1.2.2.</span> <span class="toc-text">但其实我知道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可是想想看"><span class="toc-number">1.2.3.</span> <span class="toc-text">可是想想看</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#于是有了个问题"><span class="toc-number">1.2.4.</span> <span class="toc-text">于是有了个问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不过转念一想"><span class="toc-number">1.2.5.</span> <span class="toc-text">不过转念一想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#这算是个"><span class="toc-number">1.2.6.</span> <span class="toc-text">这算是个</span></a></li></ol></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://refactoring.guru/images/patterns/content/builder/builder-en.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">遐想的空中宫殿</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">创造型模式-Singleton (1)</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2020-12-19T08:02:51.000Z" title="Created 2020-12-19 16:02:51">2020-12-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2020-12-19T08:06:51.528Z" title="Updated 2020-12-19 16:06:51">2020-12-19</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>5min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="创建型模式-Singleton-1"><a href="#创建型模式-Singleton-1" class="headerlink" title="创建型模式-Singleton (1)"></a>创建型模式-Singleton (1)</h1><blockquote>
+<p>我相信，真理是越辩越明的。</p>
+<p>这句话最重要的是 “辩”，其次才是 “真理”。</p>
+<p>说不定哪天发现了更有趣的事情，就又鸽子了。</p>
+</blockquote>
+<h2 id="提问"><a href="#提问" class="headerlink" title="提问"></a>提问</h2><p>在写代码的时候，总有无穷多种方法解决同一个问题。</p>
+<p>即使它们划到最后，道理真的相同、运用的性质、定理真的相同，那么对于一个方法，也一定有无穷多种实现。</p>
+<p>正因为问题的答案不仅仅由一种实现才能得出，正因为人的想法千奇百怪，实现的方式千奇百怪，这之间才有了比较。</p>
+<p>不过这么说，问题的中心好像又回到了 “如何拥有更好的逻辑” 上来了。但设计模式考虑的应该不仅仅是 “如何拥有更好的思考方式”，还有 “如何更好地复现自己的思考”。</p>
+<p>而现在，这里是要从我实际生活中见到的代码片段、项目，甚至是现实世界得到启发。</p>
+<h2 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h2><h3 id="比如-UNIX-V6"><a href="#比如-UNIX-V6" class="headerlink" title="比如 UNIX V6++"></a>比如 UNIX V6++</h3><p>tjdx 计算机类的大三学生都会收到这么一份代码 —— UNIX V6++，这里附上该项目指导老师的 <a href="http://chenhz.tongji.asia/archives/1231" target="_blank" rel="noopener">后日谈</a>。</p>
+<p>我们考虑一个单核操作系统。它有着哪些机制？</p>
+<ul>
+<li>一个进程调度助手；</li>
+<li>一个外设管理助手；</li>
+<li>一个页表管理助手；</li>
+<li>一个内存管理助手；</li>
+<li>一个文件管理系统；</li>
+<li>…</li>
+</ul>
+<p>总之它需要很多方面的帮助。而这些功能并不是简简单单几个函数就可以完成的。好吧，即使某些部分它可以被很简练地完成，代码加起来 700~800 行，但是站在更高层次上看待、管理它们是需要的。</p>
+<p>抛开这些，我们先不谈这些东西的具体细节，而是把它们当作已经实现好的一个个类。站在 “继承链”（不合理地使用一下某门语言的概念）的角度来看，或许是有一些类出自同一父类的，比如比较重要的页表分为 <code>Kernel Page, User Page</code> 它们的管理方法肯定是不同的。</p>
+<p>但是我们可以想象到，大部分的类是不存在父子关系的。比如页表管理和外设管理。我就想不到有半毛钱的关系。</p>
+<p><img src="./img/devicemanager.png" alt="设备管理的代码"></p>
+<p><img src="img/pagemanager.png" alt="页表管理的代码"></p>
+<p>（可以看到连 <code>#include</code> 的东西都不一样）</p>
+<p>所以也不难理解，这些杂七杂八的东西堆在一起，是不可能自己动起来的。</p>
+<p>由此产生了一个想法 —— 不得不需要一个东西来统筹放置它们。</p>
+<h3 id="但其实我知道"><a href="#但其实我知道" class="headerlink" title="但其实我知道"></a>但其实我知道</h3><p>我这个逻辑是不对的。从 <code>UNIX V6++</code> 几位编写者的角度来看，甚至或者说从正常人的角度来看，肯定是先给出一个 “大的类” 表示整个内核，然后才开始想为了实现这个内核，我需要什么东西。</p>
+<p>而不是说，现有这么一些功能类，才想到要有一个东西来统筹安排。</p>
+<p>如果说写代码都像我这个脑回路的话，那遇到一点问题就要推翻重写了！</p>
+<hr>
+<p>但是我这里是用相反的思路验证上面这种想法的正确性嘛……</p>
+<hr>
+<h3 id="可是想想看"><a href="#可是想想看" class="headerlink" title="可是想想看"></a>可是想想看</h3><p>诚然，即使有些东西是独立开来的。</p>
+<p>但是大多数的类终究还是得耦合在一起。</p>
+<p><img src="img/o!.png" alt="我心目中的 UNIX V6++"></p>
+<p>就拿 <strong>进程管理类</strong> <code>ProcessManager</code> 来说，其中有一个方法叫做 <code>sched</code>，顾名思义，是与进程调度相关。</p>
+<p><img src="img/dataflow1.png" alt="sched 的流程图"></p>
+<p>如果我还保持着 “一个类只能调与自己语义上十分相关的成员” 思想，那么这个流程图是解释不通的：</p>
+<ul>
+<li>为什么进程调度的方法要计算 <strong>内存大小</strong>？</li>
+<li>为什么还有可能涉及与 <strong>盘交换区</strong> 的操作？</li>
+</ul>
+<p>这还是比较浅层，能从流程图看出来的。稍稍深入想一点，还会考虑到：</p>
+<ul>
+<li>睡眠 <code>Sleep</code> 和进程操作相关，这没错。<ul>
+<li>但是我作为 <strong>进程管理类</strong> <code>ProcessManager</code>，有那么多的进程需要管理，我怎么知道要让哪个 <code>Sleep</code>？</li>
+<li><code>Sleep</code> 必定是一个进程的方法，因为它是一个进程的行为。而非 <strong>进程管理类</strong> 的行为。<ul>
+<li>除非 <strong>进程管理类</strong> 有一个可以通过给出进程 <code>id</code> 让进程入睡的方法，否则这便不是 <strong>进程管理类</strong> 处理的事情。</li>
+<li>但是这又陷入了 “如何获取进程 <code>id</code>” 这个问题，而它等同于 “如何调用那个需要入睡进程的 <code>Sleep</code> 方法”。</li>
+</ul>
+</li>
+<li>我们轻松联想到：“只要知道当前用户，便可以知道当前用户下的进程！”</li>
+</ul>
+</li>
+<li>啊这，为什么又和用户 <code>User</code> 有关了？</li>
+</ul>
+<p><img src="img/u_procp.png" alt="就是如此"></p>
+<p>虽然很不想承认，但是 <code>sched</code> 方法在 <code>UNIX V6++</code> 中就是这么实现的。</p>
+<p>（当然，我也是和着流程图叙述的）</p>
+<h3 id="于是有了个问题"><a href="#于是有了个问题" class="headerlink" title="于是有了个问题"></a>于是有了个问题</h3><p><code>sched</code> 中需要用户，或者说需要 <code>UNIX V6++</code> 的 <strong>用户管理助手</strong>。</p>
+<p>这很好解决，只需要让 <strong>进程管理类</strong> 继承一个有 <strong>用户管理助手</strong> 类型的成员就可以了。（肯定不会直接写到 <strong>进程管理类</strong> 里面去啊，又跟他没有特别大的关系）</p>
+<p>但是这实在是太傻了。那样，<strong>进程管理类</strong> 中会有一个 <code>UserManager</code> 指针，但是与此同时，最顶层的 <code>Kernel</code> 类中也必定会定义一个 <code>UserManager</code> 指针。这两个指针指着同一个 <strong>用户管理助手</strong>，未免太憨了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Kernel</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    UserManager* UserManager_p;</span><br><span class="line">    ProcessManager* ProcessManager_p;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* some code */</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* some code */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProcessManager</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    UserManager* UserManager_p;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* some code */</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="不过转念一想"><a href="#不过转念一想" class="headerlink" title="不过转念一想"></a>不过转念一想</h3><p><code>UNIX V6++</code> 好像说过了，是个单核操作系统。并且也不需要、不必要多个 <code>Kernel</code> 对象。</p>
+<p>虽然整个 <code>UNIX V6++</code> 在运行过程中，会有很多的进程（其实也不是很多），它们却不需要一个进程拥有一个核心，不需要一个真正完整的操作系统专门为它服务。（接下来就是几乎抄书了）</p>
+<p>那么，为什么不想个办法让 <code>Kernel</code> 类下的所有成员都可以访问到它自己？</p>
+<p>于是我们首先想到一个办法：<strong>全局变量</strong>。</p>
+<p>好是好的，但是很容易被误改。</p>
+<p><code>LoC</code> 一高，眼睛一花，再加上新使用者并不是那么了解整个项目，万一再在入口函数位置自己新整了个内核对象，估计就会让程序产生难以预料的结果。</p>
+<p>但其实还有另外一种方法：<strong>类内静态变量</strong>：（我也觉得一般人类也就能想到这两种了）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Kernel</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">static</span> Kernel instance;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* some code */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> Kernel&amp; <span class="title">Instance</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* some code */</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* some code */</span></span><br><span class="line"></span><br><span class="line"><span class="function">Kernel&amp; <span class="title">Kernel::Instance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Kernel::instace;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>于是想要在 <code>ProcessManager::sched()</code> 中取得当前用户对应的进程就变成了：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UserManager u = Kernel::Instance().GetUserManager();</span><br><span class="line">u.u_procp-&gt;Sleep(<span class="comment">/* some parameter */</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="这算是个"><a href="#这算是个" class="headerlink" title="这算是个"></a>这算是个</h3><p>单例模式(Singleton)。</p>
+<p>当时读到 P84（很抱歉读的是中文版），就想到了这个例子，在 <code>UNIX V6++</code> 中，对单例模式的应用还比较有限，其优势仅仅体现在 <strong>令整个项目有了一个 Kernel 唯一实例访问方法</strong>。</p>
+<p><img src="./img/singleton.png" alt="很明显，学长们非常明确单例模式的优势"></p>
+<p>然而整个项目也仅仅有这一个单例的应用。（并不是所有的 <code>static member in class</code> 都是单例模式的体现）</p>
+<p>由于项目关系，有关单例模式的 <strong>可变数目实例</strong>、<strong>Singleton 子类</strong> 等方面并没有体现。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/skyleaworlder" target="_blank" rel="noopener">skyleaworlder</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://skyleaworlder.github.io/2020/12/19/DP-note-1/" target="_blank" rel="noopener">https://skyleaworlder.github.io/2020/12/19/DP-note-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a><a class="post-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></div><div class="post_share"><div class="social-share" data-image="https://refactoring.guru/images/patterns/content/builder/builder-en.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2020/12/18/DP-note-0/"><img class="next-cover" src="https://refactoring.guru/images/patterns/content/builder/builder-en.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">设计模式-读书笔记 (0)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2020/12/18/DP-note-0/" title="设计模式-读书笔记 (0)"><img class="cover" src="https://refactoring.guru/images/patterns/content/builder/builder-en.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-18</div><div class="title">设计模式-读书笔记 (0)</div></div></a></div><div><a href="/2020/08/25/EAC2-1-3/" title="读书笔记-编译器设计（第一章到第三章）"><img class="cover" src="https://www.astateofdata.com/wp-content/uploads/2019/09/code-compiler-machine-code.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-25</div><div class="title">读书笔记-编译器设计（第一章到第三章）</div></div></a></div><div><a href="/2020/10/28/shell-1/" title="shell 脚本学习 —— 通过 setup-ipsec-vpn"><img class="cover" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1603909475069&di=2023d4cbbb673e9f44655b12cfd23a35&imgtype=0&src=http%3A%2F%2Fss.csdn.net%2Fp%3Fhttps%3A%2F%2Fmmbiz.qpic.cn%2Fmmbiz_jpg%2FZTYjw6KickuB2omt1eg45DoOdNf2pKgicHBWODkXvJqdmB0s9C1v5Wtm3eMD7E5MKPdmkDFaXOLPLKvQkMQy82dA%2F640%3Fwx_fmt%3Djpeg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-28</div><div class="title">shell 脚本学习 —— 通过 setup-ipsec-vpn</div></div></a></div><div><a href="/2020/10/31/SoftEtherVPN-1/" title="从 RFC-2408 看 SoftEtherVPN (1)"><img class="cover" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1604087556871&di=1c7e0400e88d4c2ebab80aed07292a9c&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20150801%2Fmp25282978_1438403769275_1_th.jpeg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-31</div><div class="title">从 RFC-2408 看 SoftEtherVPN (1)</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By skyleaworlder</div><div class="framework-info"><span>Framework </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">Hello! This is <a href="https://github.com/skyleaworlder" target="_blank" rel="noopener">skyleaworlder</a>...</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '47acdb8cdd05067e5096',
+      clientSecret: '772acc69515bf271c73913a6b3c42de3508a6dd5',
+      repo: 'skyleaworlder.github.io',
+      owner: 'skyleaworlder',
+      admin: ['skyleaworlder'],
+      id: '2aae2646aa75cb806a861567787f29e9',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: true,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><canvas class="fireworks"></canvas><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+document.body.addEventListener('input', POWERMODE);
+</script></div></body></html>
