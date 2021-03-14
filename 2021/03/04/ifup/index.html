@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>我网起来了! | 遐想的空中宫殿</title><meta name="description" content="（封面是一个睡觉的小狗，没有任何含义，只是觉得乖） 前几天整了台新电脑，把里面 Win10 格式化了，直接装的 Ubuntu 18.04，之后就出现了问题。 总的说来是连不上无线网。有 wlp1s0，但是连不上无线网。所以一直都是通过 USB 网络共享来遨游互联网（ 今天下午又搞了三个小时，让我感到最恼火的是 ip link set wlp1s0 up 这个指令的返回是 invalid argum"><meta name="keywords" content="ubuntu"><meta name="author" content="skyleaworlder"><meta name="copyright" content="skyleaworlder"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/img/skyleaworlder.png"><link rel="canonical" href="http://yoursite.com/2021/03/04/ifup/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="我网起来了!"><meta property="og:url" content="http://yoursite.com/2021/03/04/ifup/"><meta property="og:site_name" content="遐想的空中宫殿"><meta property="og:description" content="（封面是一个睡觉的小狗，没有任何含义，只是觉得乖） 前几天整了台新电脑，把里面 Win10 格式化了，直接装的 Ubuntu 18.04，之后就出现了问题。 总的说来是连不上无线网。有 wlp1s0，但是连不上无线网。所以一直都是通过 USB 网络共享来遨游互联网（ 今天下午又搞了三个小时，让我感到最恼火的是 ip link set wlp1s0 up 这个指令的返回是 invalid argum"><meta property="og:image" content="https://skyleaworlder.github.io/2021/03/04/ifup/cover.jpg"><meta property="article:published_time" content="2021-03-04T12:34:30.000Z"><meta property="article:modified_time" content="2021-03-14T09:27:03.694Z"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.1',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  bookmark: {
+    message_prev: 'Press',
+    message_next: 'to bookmark this page'
+  },
+  runtime: '',
+  date_suffix: {"one_hour":"Just","hours":"hours ago","day":"days ago"},
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2021-03-14 17:27:03'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
+
+var autoChangeMode = 'false'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/skyleaworlder.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">23</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">24</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前几天"><span class="toc-number">1.</span> <span class="toc-text">前几天</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#所以我想了个办法"><span class="toc-number">2.</span> <span class="toc-text">所以我想了个办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接下来是"><span class="toc-number">3.</span> <span class="toc-text">接下来是</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#但是"><span class="toc-number">4.</span> <span class="toc-text">但是</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其实"><span class="toc-number">5.</span> <span class="toc-text">其实</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#那么现在"><span class="toc-number">6.</span> <span class="toc-text">那么现在</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#终于"><span class="toc-number">7.</span> <span class="toc-text">终于</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://skyleaworlder.github.io/2021/03/04/ifup/cover.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">遐想的空中宫殿</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">我网起来了!</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-03-04T12:34:30.000Z" title="Created 2021-03-04 20:34:30">2021-03-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-03-14T09:27:03.694Z" title="Updated 2021-03-14 17:27:03">2021-03-14</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>3min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p>（封面是一个睡觉的小狗，没有任何含义，只是觉得乖）</p>
+<h2 id="前几天"><a href="#前几天" class="headerlink" title="前几天"></a>前几天</h2><p>整了台新电脑，把里面 <code>Win10</code> 格式化了，直接装的 <code>Ubuntu 18.04</code>，之后就出现了问题。</p>
+<p>总的说来是连不上无线网。有 <code>wlp1s0</code>，但是连不上无线网。所以一直都是通过 <code>USB</code> 网络共享来遨游互联网（</p>
+<p>今天下午又搞了三个小时，让我感到最恼火的是 <code>ip link set wlp1s0 up</code> 这个指令的返回是 <code>invalid arguments</code>，着实想不通。</p>
+<h2 id="所以我想了个办法"><a href="#所以我想了个办法" class="headerlink" title="所以我想了个办法"></a>所以我想了个办法</h2><p>我另一台电脑上有一个 <code>Ubuntu 18.04</code> 的虚拟机，安装使用的镜像和前面那个是一样的。由于我对 <code>VMware</code> 的网络设置进行了一些修改，导致其上不了网。我对我虚拟机上不了网的了解仅仅停留在 <strong>它上不了网</strong>，再加上之前一直没有心情整，这下刚好n试试到底是不是相同的问题。</p>
+<p><img src="begin.png" alt="开幕雷击"></p>
+<p>之后是普通的两个指令 <code>ip a</code> 和 <code>ifconfig</code> 的返回：</p>
+<p><img src="ipaifconfig.png" alt="彻底失败了"></p>
+<p>看下 <code>network-manager</code> 这个服务，还是正常的：</p>
+<p><img src="beginsystemctl.png" alt="服了"></p>
+<p>然后我尝试了 <code>sudo ifup ens33</code>：</p>
+<p><img src="ifup.png" alt="？？成了？"></p>
+<p>的确是起来了。我也注意到原本的 <code>ens33</code> 就是 <code>state DOWN</code>，而非我那个什么 <code>noop state</code>。所以在这里就已经比我那个物理机要高多了，我那个机器执行了这一步，也还是 <code>noop</code>。<br>（我也没搜是什么意思）</p>
+<h2 id="接下来是"><a href="#接下来是" class="headerlink" title="接下来是"></a>接下来是</h2><p>要对 <code>Ubuntu</code> 虚拟机配置，而非物理机。</p>
+<p>现在的问题是，它不知道它自己是谁，由于是虚拟机，所以我得按照外面 <code>VMware</code> 的设置来自己配下 <code>ip</code>……</p>
+<p><img src="vmconfig.png" alt="外面的设置"></p>
+<p>改成这个样子：</p>
+<p><img src="afterinterface.png" alt="/etc/network/interfaces"></p>
+<p>重启服务后就有了，现在看起来十分地正常，那么是表面正常还是真的能用，开一下浏览器就行了：</p>
+<p><img src="pingable.png" alt="好像 dns 出了点问题"></p>
+<p><code>182.61.200.6</code> 是我在学院图书馆 <code>ping www.baidu.com</code> 应该得到的 <code>ip</code>，这里是能 <code>ping</code>，但是无法直接用域名。</p>
+<p><img src="beforesystemdresolve.png" alt="看下 dns"></p>
+<p>哦，没有 <code>DNS Server</code> 的配置，那我就加一个 <code>8.8.8.8</code>：</p>
+<p><img src="aftersystemdresolve.png" alt="改好了"></p>
+<h2 id="但是"><a href="#但是" class="headerlink" title="但是"></a>但是</h2><p>我之后 <code>reboot</code> 了一下，但是发现电脑对 <code>--set-dns=8.8.8.8</code> 这句话一点记性都没有，查看 <code>status</code> 还是看不到 <code>DNS Server</code>。</p>
+<p>我也尝试了网上的一些方法，比如手动改 <code>/etc/resolve.conf</code>：</p>
+<p><img src="appenddnsmanual.png" alt="自己加试试"></p>
+<p>尽管后面又可以正常进行域名解析了：</p>
+<p><img src="afterappenddnsmanual.png" alt="又可以了，看来改这里是可以的"></p>
+<p>但是在重启之后还是清掉了：</p>
+<p><img src="reboot.png" alt="哎"></p>
+<h2 id="其实"><a href="#其实" class="headerlink" title="其实"></a>其实</h2><p>我也知道，不应该这么手动改。<br>上面都写了，这个文件不建议直接动，它是由 <code>systemd-resolved</code> 动态维护的，想来开机的时候肯定是要重新生成。</p>
+<p>我也发现这个 <code>resolve.conf</code> 链到了 <code>/run</code> 的子目录下的一个配置文件，说明它本来就是个运行时文件，我通过命令，或许是可以直接动 <code>systemd-resolved</code> 内部；通过这里修改，或许会触发程序的一个什么什么钩子，然后给我更新 <code>dns server</code> 的列表：</p>
+<p><img src="link.png" alt="链过去了"></p>
+<p>所在的文件夹中，有一个 <code>stub-resolve.conf</code> 和 <code>resolve.conf</code>，就目前来说，两个文件的区别仅仅是少了两行注释，这里就不贴出来了。</p>
+<p>在 <code>DNS</code> 那一系列概念里面，<code>stub</code> 正如我高中所学的那点英文中的含义一样，是 “主干，根” 的意思。当我试图通过一个域名进行网站的访问的时候，<code>DNS stub</code> 就会去找 <code>/etc/hosts</code> 里面找对应的 <code>IP</code>，如果没有才去问 <code>DNS Server</code>。</p>
+<p>也就是说，这里的两个配置文件是和 <code>DNS stub</code> 以及正经的 <code>DNS</code> 有关的（或许？），我怎么说也不应该自己碰这两个自动生成的东西。</p>
+<h2 id="那么现在"><a href="#那么现在" class="headerlink" title="那么现在"></a>那么现在</h2><p>改 <code>/etc</code> 下的 <code>resolve.conf</code> 是绝对不可行的，因为它是个运行时文件，只好换其他的思路了。我也在网上搜了许多改 <code>dns</code> 的方法，但大多一看就觉得不靠谱……</p>
+<p>今天下午我在倒腾我那个物理机的时候，经常看到一个叫做 <code>systemd</code> 的文件夹，里面好像也有个 <code>resolve.conf</code>。我是今天晚上才知道 <code>resolve.conf</code> 是和 <code>dns</code> 挂钩的（还是因为可以通过 <code>systemd-resolved</code> 来设置 <code>dns server</code> 的 <code>ip</code>）</p>
+<p>我就试着改了下这个配置文件：</p>
+<p><img src="systemd.png" alt="/etc/systemd/resolve.conf"></p>
+<p>之后通过重启来重启 <code>systemd</code>，然后我就惊了，右上角不知道什么时候冒出来了好久不见的 <strong>有线连接</strong> 图标，同时我怀着激动的心情打开浏览器，打算开始遨游互联网：</p>
+<p><img src="nice.png" alt="芜湖！我起了！"></p>
+<p>同时看一下我们的 <code>status</code>：</p>
+<p><img src="globaldns.png" alt="在全局里面"></p>
+<p><code>Global</code> 上面直接加了个 <code>DNS Servers: 8.8.8.8</code> 的键值对，这毫无疑问是起飞了。</p>
+<h2 id="终于"><a href="#终于" class="headerlink" title="终于"></a>终于</h2><p>时隔两个月，我第一次用我的 <code>Ubuntu</code> 虚拟机像个正常人一样上网。</p>
+<p>我枯了，宁呢？</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/skyleaworlder" target="_blank" rel="noopener">skyleaworlder</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://skyleaworlder.github.io/2021/03/04/ifup/" target="_blank" rel="noopener">https://skyleaworlder.github.io/2021/03/04/ifup/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ubuntu/">ubuntu</a></div><div class="post_share"><div class="social-share" data-image="https://skyleaworlder.github.io/2021/03/04/ifup/cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/03/06/SSH-HP/"><img class="prev-cover" src="https://skyleaworlder.github.io/2021/03/06/SSH-HP/cover.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">SSH-HP</div></div></a></div><div class="next-post pull-right"><a href="/2021/02/17/jgRPC/"><img class="next-cover" src="http://5b0988e595225.cdn.sohucs.com/images/20190122/22573178722d482f91384c47127893e2.jpeg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">算是属于自己的第一次个人构想 —— go-jgRPC</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By skyleaworlder</div><div class="framework-info"><span>Framework </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">Hello! This is <a href="https://github.com/skyleaworlder" target="_blank" rel="noopener">skyleaworlder</a>...</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '47acdb8cdd05067e5096',
+      clientSecret: '772acc69515bf271c73913a6b3c42de3508a6dd5',
+      repo: 'skyleaworlder.github.io',
+      owner: 'skyleaworlder',
+      admin: ['skyleaworlder'],
+      id: 'bcf363f7dbb0b2ceb6f49a8a9c853ff1',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: true,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><canvas class="fireworks"></canvas><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+document.body.addEventListener('input', POWERMODE);
+</script></div></body></html>

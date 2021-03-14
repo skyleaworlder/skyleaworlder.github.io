@@ -1,0 +1,292 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>创造型模式-Factory Method (2) | 遐想的空中宫殿</title><meta name="description" content="创造型模式-Factory Method (2)一个熟悉的名词工厂，我个人觉得，已经开始思考如何更好构建自己代码的码畜一定接触过这个概念。 而我这个码畜第一次是在 flask document 中听说到的。 首先，我这里应该声明，中文的 “工厂” 与 英文的 “Factory” 没有什么太大的不同。一提起 工厂，想到的应该是冒着烟的大烟囱，几间或者几十间大小不一的厂房，以及其中忙碌着的工人们。这是"><meta name="keywords" content="读书笔记,设计模式"><meta name="author" content="skyleaworlder"><meta name="copyright" content="skyleaworlder"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/img/skyleaworlder.png"><link rel="canonical" href="http://yoursite.com/2020/12/20/DP-note-2/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="创造型模式-Factory Method (2)"><meta property="og:url" content="http://yoursite.com/2020/12/20/DP-note-2/"><meta property="og:site_name" content="遐想的空中宫殿"><meta property="og:description" content="创造型模式-Factory Method (2)一个熟悉的名词工厂，我个人觉得，已经开始思考如何更好构建自己代码的码畜一定接触过这个概念。 而我这个码畜第一次是在 flask document 中听说到的。 首先，我这里应该声明，中文的 “工厂” 与 英文的 “Factory” 没有什么太大的不同。一提起 工厂，想到的应该是冒着烟的大烟囱，几间或者几十间大小不一的厂房，以及其中忙碌着的工人们。这是"><meta property="og:image" content="https://refactoring.guru/images/patterns/content/builder/builder-en.png"><meta property="article:published_time" content="2020-12-20T06:47:28.000Z"><meta property="article:modified_time" content="2020-12-22T13:43:08.677Z"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.1',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  bookmark: {
+    message_prev: 'Press',
+    message_next: 'to bookmark this page'
+  },
+  runtime: '',
+  date_suffix: {"one_hour":"Just","hours":"hours ago","day":"days ago"},
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-12-22 21:43:08'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
+
+var autoChangeMode = 'false'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/skyleaworlder.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">23</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">24</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#创造型模式-Factory-Method-2"><span class="toc-number">1.</span> <span class="toc-text">创造型模式-Factory Method (2)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一个熟悉的名词"><span class="toc-number">1.1.</span> <span class="toc-text">一个熟悉的名词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#何谓工厂"><span class="toc-number">1.2.</span> <span class="toc-text">何谓工厂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为何有工厂"><span class="toc-number">1.3.</span> <span class="toc-text">为何有工厂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有关工厂"><span class="toc-number">1.4.</span> <span class="toc-text">有关工厂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不得不说"><span class="toc-number">1.5.</span> <span class="toc-text">不得不说</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后说回-flask"><span class="toc-number">1.6.</span> <span class="toc-text">最后说回 flask</span></a></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://refactoring.guru/images/patterns/content/builder/builder-en.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">遐想的空中宫殿</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">创造型模式-Factory Method (2)</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2020-12-20T06:47:28.000Z" title="Created 2020-12-20 14:47:28">2020-12-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2020-12-22T13:43:08.677Z" title="Updated 2020-12-22 21:43:08">2020-12-22</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>7min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="创造型模式-Factory-Method-2"><a href="#创造型模式-Factory-Method-2" class="headerlink" title="创造型模式-Factory Method (2)"></a>创造型模式-Factory Method (2)</h1><h2 id="一个熟悉的名词"><a href="#一个熟悉的名词" class="headerlink" title="一个熟悉的名词"></a>一个熟悉的名词</h2><p><strong>工厂</strong>，我个人觉得，已经开始思考如何更好构建自己代码的码畜一定接触过这个概念。</p>
+<p>而我这个码畜第一次是在 <a href="https://flask.palletsprojects.com/en/1.1.x/patterns/appfactories/" target="_blank" rel="noopener">flask document</a> 中听说到的。</p>
+<p>首先，我这里应该声明，中文的 “<strong>工厂</strong>” 与 英文的 “<strong>Factory</strong>” 没有什么太大的不同。一提起 <strong>工厂</strong>，想到的应该是冒着烟的大烟囱，几间或者几十间大小不一的厂房，以及其中忙碌着的工人们。这是我在没有了解 <strong>Factory Method</strong> 之前对 <strong>工厂</strong> 这个词的初始印象。</p>
+<blockquote>
+<p>A fatcory, manufacturing plant or a production plant is an industrial site, usually a complex consisting of several buildings filled with machinery, where workers manufacture items or operate machines which process each item into another.</p>
+</blockquote>
+<p>而代码中是不可能搭建真正的 “厂房” 和 “烟囱” 的。所以要了解为什么用 <strong>Factory Method</strong> 描述这么一种设计模式，需要从另外一个方向来考虑，也就是 “目的”。</p>
+<h2 id="何谓工厂"><a href="#何谓工厂" class="headerlink" title="何谓工厂"></a>何谓工厂</h2><p>上面 <code>Wiki</code> 已经解释了。但是总的来说，工厂是生产东西的。明星工厂是出产明星的，化工厂是出产化工用品的，梦工厂是出产动画的。</p>
+<p>总归要有一种产品，才算得上是工厂。</p>
+<p>这应该算是比较朴素的解释了。但是有了这个解释还不够，为什么存在一种创造型模式叫 <strong>工厂方法</strong>？如果说出产一个东西就能算得上是工厂，那岂不是所有的创造型模式都可以叫做 <strong>工厂方法</strong> 了？</p>
+<p>我个人在看书的时候没能解决自己的这个问题。</p>
+<p>除此之外，现实生活中的工厂肯定不仅仅出产一种产品。但无论是 P73 中的 <strong>不提供所声明工厂方法实现的抽象类</strong>，还是 <strong>提供所声明工厂方法缺省实现的具体类</strong>，都存在 <strong>一个工厂类只能构造一种特定类</strong> 的问题。目前的话，已知有一种 <strong>参数化工厂方法</strong> 可以让一个工厂函数创建多种不同的类，但这么看，前面的两种方法是否有些 “名过其实” 了？</p>
+<p>所以在我本人看来，以为不成熟的思想为基础进行揣测，我更觉得 <code>Workshop</code> 比 <code>Factory</code> 更加适合。但是下面我肯定还是会按照 <code>GoF</code> 中的命名 —— <code>Factory Method</code> 来叙述。</p>
+<h2 id="为何有工厂"><a href="#为何有工厂" class="headerlink" title="为何有工厂"></a>为何有工厂</h2><p>在看 P72 图时，未来的我可能会对一个地方感到难以理解：</p>
+<p><img src="img/uml.png" alt="工厂方法示意图"></p>
+<blockquote>
+<p>为什么 Manipulator 是抽象的？</p>
+</blockquote>
+<p>如果它不是抽象类，而是一个具体类，并在这个类中定义一系列的工厂函数，那该多好，比如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manipulator</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TextFigure* <span class="title">TextManipulate</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">LineFigure* <span class="title">LineManipulate</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">/* some code */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我不知道未来看完这本书之后，我能记住多少书里的东西。但是如果我还会产生这个想法的话，那我建议自己还是怀着 <strong>无比悲痛的心情</strong> 再把书多翻两遍 —— 因为这说明我一点都没懂。</p>
+<p>这又回到了 <strong>为什么需要虚类</strong> 这个问题上了。</p>
+<p>至少在这里，虚类的存在是作为接口提供更好的封闭性和抽象性。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manipulator</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> Figure* <span class="title">FactoryCreate</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">/* some code */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TextManipulator</span> :</span> <span class="keyword">public</span> Manipulator &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Figure* <span class="title">FactoryCreate</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">/* some code */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样之后，<strong>如果我想再添加一个用来生成新类的新工厂方法</strong>，那么只需要通过继承虚类 <code>Manipulator</code> 就可以做到了，而不需要进入 <code>Manipulator</code> 来声明、实现新的方法。</p>
+<p>所以 <strong>给每一个产品配备一个工厂方法</strong>，这件事看起来就非常地合乎正常人类的审美以及思维。如此看来，<strong>参数化的工厂方法</strong> 反而有一些不雅观了。因为它破坏了整齐划一的美感，尽管正常人类更愿意接受 <strong>参数化</strong> 这种自然而然得到的解法。</p>
+<h2 id="有关工厂"><a href="#有关工厂" class="headerlink" title="有关工厂"></a>有关工厂</h2><p>“工厂” 并不一定只有一种产品。这里的 “工厂”，说的是那个抽象类 <code>Manipulator</code>，而不是具体的 <code>TextManipulator</code>。</p>
+<p>我可以把 <code>Manipulator</code> 比作一个抽象出来的车间，每个车间都是这么一个框架，可能有 <code>Create()</code>，可能还有其他方法。而具体的 <code>TextManipulator</code> 就是已经装修好的、有设备机械的车间。</p>
+<p><img src="img/inher.png" alt="继承关系"></p>
+<p>这个图的表示有些抽象，但其实就是这么一个意思。我现在手头有了一系列不同的继承于抽象工厂类的子类（图上面有圆圈的图形，代表了三种子类），我就可以根据这些子类创造不同的产品。</p>
+<p>我的产品并不一定都一样，产生的实例们 <strong>可能也有区别</strong>。最后，我可以通过一系列工厂方法的调用，完成一个暴露给使用者的函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Maze* <span class="title">MazeGame::CreateMaze</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Maze* aMaze = MakeMaze();</span><br><span class="line"></span><br><span class="line">  Room* r1 = MakeRoom(<span class="number">1</span>);</span><br><span class="line">  Room* r2 = MakeRoom(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* some code */</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> aMaze;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>甚至说，用户可以自己用这些暴露出来的工厂函数实现自己想要的最终产物。（由于这里只说工厂方法，所以不说其他设计模式掺杂进来之后的效果了）</p>
+<h2 id="不得不说"><a href="#不得不说" class="headerlink" title="不得不说"></a>不得不说</h2><p><code>factory</code> 这个概念给我带来的影响是巨大的。</p>
+<p>其实 <strong>创造性模式</strong> 这里面的设计模式都给了我不小的收获。正如书末尾提到的：</p>
+<blockquote>
+<p>设计模式使你可以更多地描述 “为什么” 这样设计而不仅仅是记录你的设计结果。</p>
+</blockquote>
+<p>我觉得创造是很重要的。好的开始是成功的一半，好的创造方法自然也是成功的一半。一旦创造方法设计得出色，那么调试、单元测试都是更加容易做的。</p>
+<p>我接触编程不到半年时，就知道了什么是 “单一职责”，<strong>工厂方法</strong> 毫无疑问，在创建对象上就是 <code>SRP</code> 的体现。尽管外层的函数有可能需要多次使用工厂方法创造多个实例，麻烦了一些。但是这不影响工厂方法在它本职工作上很好地遵守了这个原则。</p>
+<h2 id="最后说回-flask"><a href="#最后说回-flask" class="headerlink" title="最后说回 flask"></a>最后说回 flask</h2><p>一开始提到我第一次接触 <code>factory</code> 概念是在 <code>flask</code> 的官方文档，其中给了这样一段代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_app</span><span class="params">(config_filename)</span>:</span></span><br><span class="line">    app = Flask(__name__)</span><br><span class="line">    app.config.from_pyfile(config_filename)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">from</span> yourapplication.model <span class="keyword">import</span> db</span><br><span class="line">    db.init_app(app)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">from</span> yourapplication.views.admin <span class="keyword">import</span> admin</span><br><span class="line">    <span class="keyword">from</span> yourapplication.views.frontend <span class="keyword">import</span> frontend</span><br><span class="line">    app.register_blueprint(admin)</span><br><span class="line">    app.register_blueprint(frontend)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> app</span><br></pre></td></tr></table></figure>
+<p>假设我现在一句 <code>flask</code> 也不会，来试图理解一下这个 <strong>工厂函数</strong> 的意思：</p>
+<ul>
+<li>首先，它返回一个名为 <code>app</code> 的实例。<ul>
+<li>也就是说，这个函数的输出是一个 <code>Flask</code> 对象。</li>
+<li>为什么我知道返回的是一个实例？我不是一句 <code>flask</code> 都不会吗？</li>
+<li>但是这里不是写着：<code>app = Flask(__name__)</code> 吗……</li>
+</ul>
+</li>
+<li>同时，这个 <strong>工厂函数</strong> 的输入是 <code>config_filename</code>。<ul>
+<li>然后看下面的的确确利用这个配置文件路径对 <code>app</code> 进行了配置：<code>app.config.from_pyfile(config_filename)</code>。</li>
+</ul>
+</li>
+<li>此后，还对数据库、管理视图进行了配置。<ul>
+<li>很明显这些东西都是假定写好了的。</li>
+<li>因为用了 <code>blueprint</code>……</li>
+</ul>
+</li>
+</ul>
+<p>也就是说，这个 <strong>工厂函数</strong> 与书中提到的 <strong>参数化工厂方法</strong> 相似。只不过这里的参数化体现在 <code>config_filename</code> 这个文件中，并且无论给出怎样的参数，该工厂函数都仅仅生成 <strong>一种类的实例</strong>，而不能生成多种 <strong>Flask 类的子类</strong> 的实例。</p>
+<p>这里的参数化，只不过是通过配置文件来对单个类进行定制，而非在不同子类之间进行选择。可以想象，这个配置文件中有关于 <code>host</code>, <code>mode</code>, <code>port</code> 等一系列配置信息。</p>
+<p>在这种 <strong>参数化工厂方法</strong> 下，一个 <code>create</code> 函数，因配置文件不同可以创造 <strong>多种</strong> 产品(此指 <code>flask</code> 实例)，正与 P73 中的描述类似。</p>
+<p><code>flask</code> 官方文档还提出了一些建议：</p>
+<blockquote>
+<p>The factory function above is not very clever, but you can improve it. The following changes are straightforward to implement:</p>
+<ol>
+<li><p>Make it possible to pass in configuration values for unit tests so that you don’t have to create config files on the filesystem.</p>
+</li>
+<li><p>Call a function from a blueprint when the application is setting up so that you have a place to modify attributes of the application (like hooking in before/after request handlers etc.)</p>
+</li>
+<li><p>Add in WSGI middlewares when the application is being created if necessary.</p>
+</li>
+</ol>
+</blockquote>
+<p>虽然说是一些关于测试、开发上的建议，但是也可以看出，在 <strong>参数化工厂方法</strong> 下，工厂类虽然并不是那么清晰，甚至让刚刚接手的人感到繁杂，需要一点点理解每句话的含义（如果格外抽象的话），但是它确实还是方便的。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/skyleaworlder" target="_blank" rel="noopener">skyleaworlder</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://skyleaworlder.github.io/2020/12/20/DP-note-2/" target="_blank" rel="noopener">https://skyleaworlder.github.io/2020/12/20/DP-note-2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a><a class="post-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></div><div class="post_share"><div class="social-share" data-image="https://refactoring.guru/images/patterns/content/builder/builder-en.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/12/21/Remake/"><img class="prev-cover" src="https://img.zcool.cn/community/0143405970c601a8012193a3e7992f.png@1280w_1l_2o_100sh.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">今日小笑话 —— 我在写代码</div></div></a></div><div class="next-post pull-right"><a href="/2020/12/19/DP-note-1/"><img class="next-cover" src="https://refactoring.guru/images/patterns/content/builder/builder-en.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">创造型模式-Singleton (1)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2020/12/18/DP-note-0/" title="设计模式-读书笔记 (0)"><img class="cover" src="https://refactoring.guru/images/patterns/content/builder/builder-en.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-18</div><div class="title">设计模式-读书笔记 (0)</div></div></a></div><div><a href="/2020/12/19/DP-note-1/" title="创造型模式-Singleton (1)"><img class="cover" src="https://refactoring.guru/images/patterns/content/builder/builder-en.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-19</div><div class="title">创造型模式-Singleton (1)</div></div></a></div><div><a href="/2020/08/25/EAC2-1-3/" title="读书笔记-编译器设计（第一章到第三章）"><img class="cover" src="https://www.astateofdata.com/wp-content/uploads/2019/09/code-compiler-machine-code.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-25</div><div class="title">读书笔记-编译器设计（第一章到第三章）</div></div></a></div><div><a href="/2020/10/28/shell-1/" title="shell 脚本学习 —— 通过 setup-ipsec-vpn"><img class="cover" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1603909475069&di=2023d4cbbb673e9f44655b12cfd23a35&imgtype=0&src=http%3A%2F%2Fss.csdn.net%2Fp%3Fhttps%3A%2F%2Fmmbiz.qpic.cn%2Fmmbiz_jpg%2FZTYjw6KickuB2omt1eg45DoOdNf2pKgicHBWODkXvJqdmB0s9C1v5Wtm3eMD7E5MKPdmkDFaXOLPLKvQkMQy82dA%2F640%3Fwx_fmt%3Djpeg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-28</div><div class="title">shell 脚本学习 —— 通过 setup-ipsec-vpn</div></div></a></div><div><a href="/2020/10/31/SoftEtherVPN-1/" title="从 RFC-2408 看 SoftEtherVPN (1)"><img class="cover" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1604087556871&di=1c7e0400e88d4c2ebab80aed07292a9c&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20150801%2Fmp25282978_1438403769275_1_th.jpeg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-31</div><div class="title">从 RFC-2408 看 SoftEtherVPN (1)</div></div></a></div><div><a href="/2021/01/05/openssl-replay-1/" title="从 RFC-6101 看 openssl (1)"><img class="cover" src="https://i.imgflip.com/ggiju.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-05</div><div class="title">从 RFC-6101 看 openssl (1)</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By skyleaworlder</div><div class="framework-info"><span>Framework </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">Hello! This is <a href="https://github.com/skyleaworlder" target="_blank" rel="noopener">skyleaworlder</a>...</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '47acdb8cdd05067e5096',
+      clientSecret: '772acc69515bf271c73913a6b3c42de3508a6dd5',
+      repo: 'skyleaworlder.github.io',
+      owner: 'skyleaworlder',
+      admin: ['skyleaworlder'],
+      id: 'f57a573537bb26fd2ad848f8ba7a047a',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: true,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><canvas class="fireworks"></canvas><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+document.body.addEventListener('input', POWERMODE);
+</script></div></body></html>
