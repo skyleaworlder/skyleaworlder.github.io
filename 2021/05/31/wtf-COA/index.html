@@ -1,0 +1,229 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>skyleaworlder 的 nt 时刻 | 遐想的空中宫殿</title><meta name="description" content="主要用于记录自己以前学习 汇编语言 &#x2F; 操作系统 &#x2F; 组成原理 一些想不明白的地方"><meta name="keywords" content="读书笔记,操作系统,组成原理,汇编语言"><meta name="author" content="skyleaworlder"><meta name="copyright" content="skyleaworlder"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/img/skyleaworlder.png"><link rel="canonical" href="http://yoursite.com/2021/05/31/wtf-COA/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="skyleaworlder 的 nt 时刻"><meta property="og:url" content="http://yoursite.com/2021/05/31/wtf-COA/"><meta property="og:site_name" content="遐想的空中宫殿"><meta property="og:description" content="主要用于记录自己以前学习 汇编语言 &#x2F; 操作系统 &#x2F; 组成原理 一些想不明白的地方"><meta property="og:image" content="https://skyleaworlder.github.io/2021/05/28/Addr-PageTable/cover.png"><meta property="article:published_time" content="2021-05-31T02:53:27.000Z"><meta property="article:modified_time" content="2021-06-02T11:15:13.261Z"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.1',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  bookmark: {
+    message_prev: 'Press',
+    message_next: 'to bookmark this page'
+  },
+  runtime: '',
+  date_suffix: {"one_hour":"Just","hours":"hours ago","day":"days ago"},
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2021-06-02 19:15:13'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
+
+var autoChangeMode = 'false'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/skyleaworlder.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">28</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">29</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、为啥学的-x86-汇编不能两个操作数都是存储器啊"><span class="toc-number">1.</span> <span class="toc-text">一、为啥学的 x86 汇编不能两个操作数都是存储器啊</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-你猜为什么我这么口嗨汇编"><span class="toc-number">1.1.</span> <span class="toc-text">1. 你猜为什么我这么口嗨汇编</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-为什么我会这么口嗨汇编啊"><span class="toc-number">1.2.</span> <span class="toc-text">2. 为什么我会这么口嗨汇编啊</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、流水线明明用了那么多时钟周期，为啥还快了"><span class="toc-number">2.</span> <span class="toc-text">二、流水线明明用了那么多时钟周期，为啥还快了</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-你猜为什么我觉得流水线慢"><span class="toc-number">2.1.</span> <span class="toc-text">1. 你猜为什么我觉得流水线慢</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-为什么我会觉得流水线慢啊"><span class="toc-number">2.2.</span> <span class="toc-text">2. 为什么我会觉得流水线慢啊</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、磁盘应该很快就坏了才对吧，磁头会对盘片造成很大伤害吧"><span class="toc-number">3.</span> <span class="toc-text">三、磁盘应该很快就坏了才对吧，磁头会对盘片造成很大伤害吧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-你猜为什么我觉得磁头会对盘片造成很大伤害"><span class="toc-number">3.1.</span> <span class="toc-text">1. 你猜为什么我觉得磁头会对盘片造成很大伤害</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-为什么我会觉得磁头会对盘片造成很大伤害啊"><span class="toc-number">3.2.</span> <span class="toc-text">2. 为什么我会觉得磁头会对盘片造成很大伤害啊</span></a></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://skyleaworlder.github.io/2021/05/28/Addr-PageTable/cover.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">遐想的空中宫殿</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">skyleaworlder 的 nt 时刻</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-05-31T02:53:27.000Z" title="Created 2021-05-31 10:53:27">2021-05-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-06-02T11:15:13.261Z" title="Updated 2021-06-02 19:15:13">2021-06-02</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">933</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>2min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="一、为啥学的-x86-汇编不能两个操作数都是存储器啊"><a href="#一、为啥学的-x86-汇编不能两个操作数都是存储器啊" class="headerlink" title="一、为啥学的 x86 汇编不能两个操作数都是存储器啊"></a>一、为啥学的 x86 汇编不能两个操作数都是存储器啊</h2><h3 id="1-你猜为什么我这么口嗨汇编"><a href="#1-你猜为什么我这么口嗨汇编" class="headerlink" title="1. 你猜为什么我这么口嗨汇编"></a>1. 你猜为什么我这么口嗨汇编</h3><p>当时就觉得很不方便，非得先把存储器里面的东西放到寄存器来，然后再通过 “寄存器-存储器” 的指令要求运算。还一度怀疑设计 汇编语言 的前辈们脑子出了问题。</p>
+<h3 id="2-为什么我会这么口嗨汇编啊"><a href="#2-为什么我会这么口嗨汇编啊" class="headerlink" title="2. 为什么我会这么口嗨汇编啊"></a>2. 为什么我会这么口嗨汇编啊</h3><p>我是不知道现在市面上这些 <code>ISA</code> 都是怎么一个过程设计出来的。但推测的话，<code>ISA</code> 的设计需要考虑当时的科学技术，比如存储器速度、存储容量之类的。内存宝贵，就用变长指令压缩指令在存储器中的所占空间；内存便宜了，就用定长指令方便开发者。<code>ISA</code> 的 <code>A</code> 和其他很多地方的 <code>A</code> 都差不多，不是什么一成不变的东西。</p>
+<p>毕竟这是汇编语言，是和 “机器” 高度关联的。这个关联不是说 <code>CPU</code> 的设计指导了 <code>ISA</code> 的设计，也不是说 <code>ISA</code> 一定都是设计好了再去写 <code>CPU</code>。我猜应该是一个互相选择的问题，不存在哪一方有绝对的主导权。</p>
+<p>但说这么多，设计 <code>ISA</code> 肯定得考虑硬件啊。假设要求 <code>ADD op1, op2</code> 这个指令得一个时钟周期做完，但是现在存储器就一块，存储器的数据总线也就一条，<code>op1</code> 和 <code>op2</code> 怎么可能都是存储器里的东西嘛？</p>
+<p>要是有一种架构，它就是有两块存储器，每一块还都有独立的数据总线，肯定就可以做 <code>ADD mem1, mem2</code> 了啊。当然也还有另外一种极端，“<code>LOAD-STORE</code>” 架构全部都在寄存器里面运算，从存储器 <code>LOAD</code> 到寄存器，再把寄存器里面算好的 <code>STORE</code> 会存储器。</p>
+<h2 id="二、流水线明明用了那么多时钟周期，为啥还快了"><a href="#二、流水线明明用了那么多时钟周期，为啥还快了" class="headerlink" title="二、流水线明明用了那么多时钟周期，为啥还快了"></a>二、流水线明明用了那么多时钟周期，为啥还快了</h2><h3 id="1-你猜为什么我觉得流水线慢"><a href="#1-你猜为什么我觉得流水线慢" class="headerlink" title="1. 你猜为什么我觉得流水线慢"></a>1. 你猜为什么我觉得流水线慢</h3><p>隔壁写的 <code>CPU</code>，单周期也是 100 ns，多周期也还是一个时钟周期 100 ns。那凭啥还多周期，这一个指令岂不是执行了 500 ns？并且流水线还得考虑什么分支预测，万一预测错了，岂不是全部白给？</p>
+<h3 id="2-为什么我会觉得流水线慢啊"><a href="#2-为什么我会觉得流水线慢啊" class="headerlink" title="2. 为什么我会觉得流水线慢啊"></a>2. 为什么我会觉得流水线慢啊</h3><p>我这不多少沾点？单周期 100 ns，按 <code>MIPS</code> 经典的 <code>5-Stage-Pipeline</code>，每一个 <code>Stage</code> 岂不是可以 20 ns？单个指令执行时间还是 100 ns，但是高效利用 <code>CPU</code> 内剩余部件了。这不和超长指令字一个思想？那为啥我觉得 <code>VLIW</code> 好，就不觉得 <code>Pipeline</code> 合理？</p>
+<p>哪怕 <code>x-Stage-Pipeline</code> 达不到 <code>x</code> 的加速比，那不也是快了？</p>
+<h2 id="三、磁盘应该很快就坏了才对吧，磁头会对盘片造成很大伤害吧"><a href="#三、磁盘应该很快就坏了才对吧，磁头会对盘片造成很大伤害吧" class="headerlink" title="三、磁盘应该很快就坏了才对吧，磁头会对盘片造成很大伤害吧"></a>三、磁盘应该很快就坏了才对吧，磁头会对盘片造成很大伤害吧</h2><h3 id="1-你猜为什么我觉得磁头会对盘片造成很大伤害"><a href="#1-你猜为什么我觉得磁头会对盘片造成很大伤害" class="headerlink" title="1. 你猜为什么我觉得磁头会对盘片造成很大伤害"></a>1. 你猜为什么我觉得磁头会对盘片造成很大伤害</h3><p>还用问？一下下撞的。更恐怖的是，如果驱动臂坏了，抬不起来，那岂不是把磁盘刮花了。</p>
+<h3 id="2-为什么我会觉得磁头会对盘片造成很大伤害啊"><a href="#2-为什么我会觉得磁头会对盘片造成很大伤害啊" class="headerlink" title="2. 为什么我会觉得磁头会对盘片造成很大伤害啊"></a>2. 为什么我会觉得磁头会对盘片造成很大伤害啊</h3><p>究竟是什么给了我 “磁头一定要碰到盘面的错觉”？</p>
+<p>那不是磁盘吗？如果是靠表面凹凸存储数据的（肯定不可能哈，如果这样那还能写入了吗），那为什么要用磁性介质？就是要通过 balabala（我也不懂）的物理手段，让磁盘上的数据传到磁头上来呀。</p>
+<p>但这不是我需要关心的，我只关心我自己。</p>
+<p>（计组的复习未完，所以必有后续）</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/skyleaworlder" target="_blank" rel="noopener">skyleaworlder</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://skyleaworlder.github.io/2021/05/31/wtf-COA/" target="_blank" rel="noopener">https://skyleaworlder.github.io/2021/05/31/wtf-COA/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a><a class="post-meta__tags" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><a class="post-meta__tags" href="/tags/%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">组成原理</a><a class="post-meta__tags" href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">汇编语言</a></div><div class="post_share"><div class="social-share" data-image="https://skyleaworlder.github.io/2021/05/28/Addr-PageTable/cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/05/28/Addr-PageTable/"><img class="next-cover" src="https://skyleaworlder.github.io/2021/05/28/Addr-PageTable/cover.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">我才知道 32 位系统也能寻 4GB 以上的地址</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/05/28/Addr-PageTable/" title="我才知道 32 位系统也能寻 4GB 以上的地址"><img class="cover" src="https://skyleaworlder.github.io/2021/05/28/Addr-PageTable/cover.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-28</div><div class="title">我才知道 32 位系统也能寻 4GB 以上的地址</div></div></a></div><div><a href="/2021/04/25/OS-Love/" title="操作系统与爱情"><img class="cover" src="https://skyleaworlder.github.io/2021/04/25/OS-Love/cover.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-25</div><div class="title">操作系统与爱情</div></div></a></div><div><a href="/2020/08/25/EAC2-1-3/" title="读书笔记-编译器设计（第一章到第三章）"><img class="cover" src="https://www.astateofdata.com/wp-content/uploads/2019/09/code-compiler-machine-code.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-25</div><div class="title">读书笔记-编译器设计（第一章到第三章）</div></div></a></div><div><a href="/2020/10/28/shell-1/" title="shell 脚本学习 —— 通过 setup-ipsec-vpn"><img class="cover" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1603909475069&di=2023d4cbbb673e9f44655b12cfd23a35&imgtype=0&src=http%3A%2F%2Fss.csdn.net%2Fp%3Fhttps%3A%2F%2Fmmbiz.qpic.cn%2Fmmbiz_jpg%2FZTYjw6KickuB2omt1eg45DoOdNf2pKgicHBWODkXvJqdmB0s9C1v5Wtm3eMD7E5MKPdmkDFaXOLPLKvQkMQy82dA%2F640%3Fwx_fmt%3Djpeg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-28</div><div class="title">shell 脚本学习 —— 通过 setup-ipsec-vpn</div></div></a></div><div><a href="/2020/10/31/SoftEtherVPN-1/" title="从 RFC-2408 看 SoftEtherVPN (1)"><img class="cover" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1604087556871&di=1c7e0400e88d4c2ebab80aed07292a9c&imgtype=0&src=http%3A%2F%2Fphotocdn.sohu.com%2F20150801%2Fmp25282978_1438403769275_1_th.jpeg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-31</div><div class="title">从 RFC-2408 看 SoftEtherVPN (1)</div></div></a></div><div><a href="/2020/12/18/DP-note-0/" title="设计模式-读书笔记 (0)"><img class="cover" src="https://refactoring.guru/images/patterns/content/builder/builder-en.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-18</div><div class="title">设计模式-读书笔记 (0)</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By skyleaworlder</div><div class="framework-info"><span>Framework </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">Hello! This is <a href="https://github.com/skyleaworlder" target="_blank" rel="noopener">skyleaworlder</a>...</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '47acdb8cdd05067e5096',
+      clientSecret: '772acc69515bf271c73913a6b3c42de3508a6dd5',
+      repo: 'skyleaworlder.github.io',
+      owner: 'skyleaworlder',
+      admin: ['skyleaworlder'],
+      id: 'a7b52a2796af1399671e649b89f07604',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: true,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><canvas class="fireworks"></canvas><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+document.body.addEventListener('input', POWERMODE);
+</script></div></body></html>
