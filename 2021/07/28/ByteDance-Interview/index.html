@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>记人生第一次互联网企业面试 | 遐想的空中宫殿</title><meta name="description" content="万万没想到，我这水平还能过实习面试？"><meta name="keywords" content="日常,生活,实习"><meta name="author" content="skyleaworlder"><meta name="copyright" content="skyleaworlder"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/img/skyleaworlder.png"><link rel="canonical" href="http://yoursite.com/2021/07/28/ByteDance-Interview/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="记人生第一次互联网企业面试"><meta property="og:url" content="http://yoursite.com/2021/07/28/ByteDance-Interview/"><meta property="og:site_name" content="遐想的空中宫殿"><meta property="og:description" content="万万没想到，我这水平还能过实习面试？"><meta property="og:image" content="http://image.mamicode.com/info/201707/20180110235130200474.png"><meta property="article:published_time" content="2021-07-28T13:09:57.000Z"><meta property="article:modified_time" content="2021-07-29T03:29:53.190Z"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.1',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  bookmark: {
+    message_prev: 'Press',
+    message_next: 'to bookmark this page'
+  },
+  runtime: '',
+  date_suffix: {"one_hour":"Just","hours":"hours ago","day":"days ago"},
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2021-07-29 11:29:53'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
+
+var autoChangeMode = 'false'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/skyleaworlder.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">31</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">30</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#个人情况"><span class="toc-number">2.</span> <span class="toc-text">个人情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#面试过程"><span class="toc-number">3.</span> <span class="toc-text">面试过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一面-65-分钟"><span class="toc-number">3.1.</span> <span class="toc-text">一面 65 分钟</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二面-47-分钟"><span class="toc-number">3.2.</span> <span class="toc-text">二面 47 分钟</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三面-50-分钟"><span class="toc-number">4.</span> <span class="toc-text">三面 50 分钟</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HR-面-65-min"><span class="toc-number">5.</span> <span class="toc-text">HR 面 65 min</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(http://image.mamicode.com/info/201707/20180110235130200474.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">遐想的空中宫殿</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">记人生第一次互联网企业面试</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-07-28T13:09:57.000Z" title="Created 2021-07-28 21:09:57">2021-07-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-07-29T03:29:53.190Z" title="Updated 2021-07-29 11:29:53">2021-07-29</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">5.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>16min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>面的是 “基础架构-代码中台”，据说主要负责字节内部代码管理平台的实现。截至目前，我还没收到确信，不过感觉 <code>HR</code> 面的表现应该没问题……</p>
+<p>我是在 <code>HR</code> 面的时候才知道这个组是做这个的。由于这个岗位简直不能再契合我的想法，当时我听到后真的难掩心中的高兴。毕竟我想报复旦的软件实验室也是看上了其中软件组对基础软件的研究。给写软件的人写软件，简直不能更爽。</p>
+<p>这次字节基础架构的面试是我第一次面大家口中的 “大厂”。当然了，也是我第一次参加互联网企业的面试，说不紧张、不激动肯定是假的。相较于实习面试的那些老手，那些 <code>offer</code> 收割机，我可谓是青涩了许多。</p>
+<p>下面的 <strong>面试过程</strong> 部分都是面完后第一时间记录的，所以可能非常啰嗦，里面掺杂了很多个人情感。精简版的我会稍后放到 <code>TJCS-Interview</code> 里面。</p>
+<h2 id="个人情况"><a href="#个人情况" class="headerlink" title="个人情况"></a>个人情况</h2><ul>
+<li>简历上写的项目：<ul>
+<li>一个前端搬砖项目，负责项目初期搭建和权限管理；</li>
+<li>一个数据库课设，从数据库设计到 <code>UI</code> 设计都亲历亲为的一个项目，前端套了个模板，后端差不多 90% 以上的代码纯手打，连 <code>ORM</code> 都没用；</li>
+<li>一堆平常写的小玩意儿，因为简历里面项目写了很大篇幅，所以问了我很多：<ul>
+<li>一个难用的 <code>RPC</code>；</li>
+<li>一个没有任何难度的数论计算器；</li>
+<li>等等……</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>简历上写的竞赛：两个数学建模，后面证明了这个在技术面完全没用；</li>
+<li>简历上写得奖：一些普通奖学金，后面证明了这个完全没用（可能也就阿里会看吧，笑死）；</li>
+<li>简历上写的经历：学校里面参加的一些组织，后面证明了这个在技术面完全没用。</li>
+</ul>
+<h2 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h2><h3 id="一面-65-分钟"><a href="#一面-65-分钟" class="headerlink" title="一面 65 分钟"></a>一面 65 分钟</h3><p>一开始问了些项目上的问题。由于我把自己的数据库课设写上去了，面试官打算以我的课设开头。但那个项目是我一年前做的，现在忘得差不多了，于是立刻让面试官问我近期做的几个项目。</p>
+<p>面试官对我自己写的一个 <code>RPC</code> 小框架有些兴趣，详细问了我写这个项目的动机（纯属个人兴趣+学习理论时的练手）、有没有其他人使用（没有），以及项目是为了解决怎样的现有问题（我就说是 <code>protobuf</code> 的序列化不是我想要的 + 自己想体验一下过程）</p>
+<p>由于我在介绍自己写得这个小项目的时候提到了一致性哈希，所以面试官试探性问了我第一个技术性问题 “哈希结果在环上分配不均衡该怎么办”，我回答的是 “虚拟节点”。这也是我 60 分钟里面唯一不离谱的回答。</p>
+<p>之后又聊了下自己做的其他两个小项目，引出了文件存储。面试官问我 “怎么存的文件”，我直接说就是文件存储。接着问了我 “如何处理具有相似前缀的文件的存储”，我觉得我不会，反手答了个 “我用 <code>map</code> 存的”，这答案把面试官整无语了。但我下来之后回顾这些问题，我想既然涉及了 “存储”，并且当时还是面试的场景下，要考虑的无非是 “查询的时间、空间”。对于这个相似前缀，我觉得最好的自然是建立适当的数据结构。存储不一定非得像 <code>mysql</code> 一样用 <code>B+</code> 树，也可以用前缀树。我想这道题的答案就是前缀树，并且树节点后接链表（扩展文件系统的功能，使之处理可能存在的同名 &amp; 不同作者文件，当然也可以只用前缀树，但按照用户划分不同区域）。只可惜当时我给出了一个非期望解法。</p>
+<p>再接着开始聊我简历上的实习经历，但那个并不算严格意义上的 “实习经历”。面试官详细问了 “项目的应用场景” 和 “我如何与后端合作”。我吹我自己不止写前端了，有时候也给后端找 <code>bug</code>。</p>
+<p>接着还是从前端回到了我的数据库课设，因为我上面写了我是用的 <code>mysql</code>，就问我项目的数据库是不是 <code>mysql cluster</code>，我说是单节点的，写那个课设的时后还不懂集群。然后就问了 <code>mysql</code> 主从库之间如何做到同步，该用 <code>mysql</code> 的什么机制。这个问题拖了我很久，我一开始本来想说通过缓存刷新到另一个 <code>mysql</code> 里面，后面觉得不对，就说了触发器，再后面就开始发病了，连事务都拖出来讲了。但是面试官提醒我 “究竟是数据好，还是日志好”。那我肯定说日志好。接着就让我分析一下 “为什么日志好”。我想来分析得非常不好。</p>
+<p>面试官开始问我语言问题，我简历上是按 <code>c-cpp-python-go</code> 来排序的，在我表明我不会 <code>c-cpp</code> 之后，就问我 “<code>python</code> 如何优雅地测试函数的运行时间”。我心里没底就开始乱答，什么 <code>import time，unittest / pytest</code> 就全说了。但面试官想问的其实是 “装饰器”。</p>
+<p>再后面就是算法题，我拉了大胯，其实是一道很简单的题，但是没做出来。等面试官教完我算法，已经 60 分钟了。面试官表示很可惜。</p>
+<p>最后是反问，我问为什么不深挖一个点，面试官表示 “那样你受不了”。我表示很感激。</p>
+<p>一面面试官很和善，当面告诉我过了一面。我也发现他并没有特别刁难我，真的非常感谢。</p>
+<p>总的来说有这些问题：</p>
+<ul>
+<li>项目：自己写的 <code>RPC</code> 框架中的协议应用了什么协议；</li>
+<li>数据结构：使用一致性哈希时，环上分配不均匀怎么办；</li>
+<li>常识：了解多少种哈希算法；</li>
+<li>项目：自己写的文件服务器如何存储文件；</li>
+<li>数据结构：如何处理大量具有相似前缀的文件存储；</li>
+<li>项目：项目的意义何在，具体应用场景是什么；</li>
+<li>常识：当前端的时候如何与后端 / 团队线上合作；</li>
+<li>数据库：熟悉哪种数据库，主从 <code>MySQL</code> 如何同步数据；</li>
+<li>语言：<code>Python</code> 如何优雅地测试函数的运行时间；</li>
+<li>算法：有序数组旋转后，求旋转后数组中的最小值；</li>
+<li>反问。</li>
+</ul>
+<p>说句实话，我一面特地安排到了复旦夏令营开营的前一天。因为很久没有被面了，按着那种状态去参加复旦夏令营的面试，表现肯定比我最巅峰的那段时间差很多。所以字节的一面在当时的我看来，只是用来刷经验的……打一开始没期望自己过。当我和面试官纠结了 50 分钟还没写一行代码的时候，我猜测我一面必凉，但面试官觉得我回答还可以，是个好学生，所以就勉强放我过了。</p>
+<h3 id="二面-47-分钟"><a href="#二面-47-分钟" class="headerlink" title="二面 47 分钟"></a>二面 47 分钟</h3><p>一开始也是让我自我介绍，我简单说了下我的项目经历，以及个人的学习情况。之前一面没有挖的太深，所以二面我做了一些准备。</p>
+<p>首先是项目。</p>
+<p>面试官相中了我所说的 <code>golang</code> 写的 “小 <code>nginx</code>”。并问我对 <code>nginx</code> 的组件有何了解。我只能说 “抱歉，抱歉，我是乱实现的，我不了解”。面试官接着问我 <code>nginx.conf</code> 中如何添加负载均衡节点，我也只能说 “抱歉抱歉”。可是最气的是，面试官问我 <code>nginx</code> 的状态码记得哪些，我也记不住，真的被自己气死了。没办法，的确太久没用过了，忘完了。只把面试官问的 “如何理解反向代理” 解释了一下，我觉得我对反向代理的概念还是理解得很清楚的。</p>
+<p>面试官看到我的数据库课设自诩是 <code>MVVM</code>，问我对 <code>MVVM</code> 的理解。这个我还是有点理解，所以围绕 <code>MVVM</code> 的由来，以及和 <code>MVC</code> 之间的区别说了一些东西。我说前后端分离方便联调，之后谈起了我写项目的时候找 <code>python</code> 的 <code>bug</code>。面试官问我 <code>python</code> 中的 <code>is</code> 和 <code>==</code> 有什么区别，我当时表示不会，但是我根据平常的使用经历猜了下它们分别用于比较地址和值，面试官直接问我是不是真的不知道哈哈哈哈。</p>
+<p>接下来，面试官开始说我的前端项目，我在前端项目的介绍中说自己是做 “权限管理” 的。我跟面试官解释了一下 “我做的是前端权限管理，不了解后端的权限是怎么写的”，接下来说自己使用的 <code>RBAC</code>。面试官问我 <code>RBAC</code> 具体是什么，以及如何考虑 <code>RBAC</code> 在项目中的应用，<code>RBAC</code> 的优势是什么。我就解释了下 <code>RBAC</code> 的字面义，以及我前端项目中的 5 个角色。<code>RBAC</code> 的优势我是用 <code>ABAC</code> 做了个对比，说了下 <code>RBAC</code> 在编程设计、数据库设计上的简易性，以及在项目传承上的可理解性。</p>
+<p>面试官听我说 “<code>RBAC</code> 将 <code>Attribute</code> 抽象成角色” 就问我在编程中最好使用哪种设计模式来做 <code>RBAC</code>。我秒答工厂模式。面试官应该对我这个答案很满意，然后让我写一个简单的工厂模式。可惜我没写出来。（但事实证明我马上就要写出来了，只是我觉得我没写出来）</p>
+<p>面试官自然很失望，又看到我写的 “小 <code>RPC</code>”，就问我 <code>HTTP</code> 和 <code>RPC</code> 之间的差别是什么。这个问题我也答得不好，只说了 <code>Protobuf</code> 生成的协议比 <code>HTTP</code> 协议短，还说 <code>RPC</code> 可以自定义，所以程序员想咋写就咋写，但是 <code>HTTP</code> 总有那么一套协议规则，全球人都得遵守，我属实开始乱答了。面试官问如果有一个系统，又用 <code>HTTP</code> 又用 <code>RPC</code>，那么什么情况下用 <code>HTTP</code>，什么情况下用 <code>RPC</code>。我也没开发过大型系统，所以根据自己对它们概念的理解，回答内部用 <code>RPC</code>，对外借口用 <code>HTTP</code>，但是下来之后搜了下，发现自己又猜对了。我在回答 <code>HTTP</code> 的时候说了句 “统一的标准”，面试官问了我该如何设计基于 <code>HTTP</code> 的 <code>API</code>，我回答 <code>REST-ful</code>，并且按照要求解释了一下 <code>REST-ful</code> 以资源为主体的核心思想。</p>
+<p>面试官接着问我 <code>HTTPS</code> 和 <code>HTTP</code> 的区别。我说是有 <code>SSL/TLS</code> 的加密，但我忘了这个玩意儿具体怎么加密了，所以只能发挥我在 “信息安全原理” 里面学到的 <code>SSLv3</code> 算法协商，把什么 <code>HMAC</code>, <code>RSA</code>, <code>AES256</code> 什么的一口气砸了过去。毕竟我看过一点 <code>OpenSSL</code> 的代码，所以面试官估计是被我套晕了，所以立刻换了个话题。</p>
+<p>接下来就是算法题。给一个二维数组，然后统计区块，或者可以叫做 “岛屿计数” 问题。我 <code>bfs</code> 一气呵成，直接通过，都没 <code>debug</code>。估计也是这个题一口气写出来才让我低空飘过二面。</p>
+<p>再之后就是问我暑假的安排和下一学期可能的学习情况，暗示我实习时间不要太短。我自然求生欲拉满。</p>
+<p>最后是反问，我整了个活儿，直接问了面试官一个我一面的问题哈哈哈哈。</p>
+<p>二面面试官人很好，听到我这也不会那也不会，比我还先一步戴上痛苦面具。后面一直通过我的项目给我找话题，问的也都很简单，我真的非常感激。</p>
+<p>总的来说有这些问题：</p>
+<ul>
+<li>常识：对 <code>nginx</code> 的组件有何了解；</li>
+<li>常识：如何理解 <code>nginx</code> 的反向代理；<code>nginx</code> 中添加负载均衡节点的语法是什么；</li>
+<li>常识：<code>nginx</code> 都有哪些状态码，5 开头的表示什么，500 / 502 / 503 是什么意思；</li>
+<li>常识：如何理解 <code>MVVM</code>，<code>MVVM</code> 是做什么的，<code>MVVM</code> 对于团队开发有什么优势和劣势；</li>
+<li>语言：<code>Python</code> 中的 <code>is</code> 和 <code>==</code> 有什么区别；</li>
+<li>项目：项目中如何实现权限管理，项目中的 <code>RBAC</code> 是如何做到的，优势是什么；</li>
+<li>设计模式：手写工厂模式，工厂模式的特点是什么；</li>
+<li>常识：<code>HTTP</code> 和 <code>RPC</code> 的差别是什么，如果一个系统同时使用 <code>HTTP</code> 和 <code>RPC</code>，二者会被分别应用于系统哪几类接口上；</li>
+<li>常识：介绍 <code>REST-ful</code> 的思想以及 <code>REST-ful</code> 风格 <code>API</code> 设计方式；</li>
+<li>常识：<code>HTTPS</code> 和 <code>HTTP</code> 的区别，<code>SSL/TLS</code> 是如何加密的，简述 <code>HTTPS</code> 握手，恶意第三方如何破解 <code>HTTPS</code>；</li>
+<li>算法：岛屿计数问题；</li>
+<li>未来一段时间的安排情况和实习可能时间；</li>
+<li>反问。</li>
+</ul>
+<p>二面是 7 月 9 号，在复旦夏令营结束之后。由于那天约了同学晚上吃饭，所以心思都到吃饭上去了，根本没在这个面试上。所以也没怎么准备，加起来也就准备了 2 个小时吧。其实问的都是很简单的问题，但是我答得并不好，吃饭的时候自然是觉得自己凉凉了。</p>
+<p>和同学聊天的时候，就在懊悔——既然自己复旦没过，就应该把后面的时间全放在这个面试上才对，不要因一时的失败而影响后面的生活啊。我当时在想，复旦优营没拿到已成事实，可如果我二面过了，三面也侥幸通过，那我岂不是有机会真正见识互联网企业了吗？无论我读研还是不读研，最后的去向应该都是互联网企业，这样一个机会肯定要抓住才是呀。</p>
+<p>虽然和同学约饭非常令人愉悦，但刚刚经历的面试的确无法让我毫无顾虑地笑。但没想到饭都还没吃完，就被告知自己通过了，属实是意外之喜。</p>
+<p>放下电话，我又惆怅了。准备了很久的复旦夏令营却草草收场，没怎么准备的实习面试却过了二面。我只能感慨。</p>
+<p>而我也是从那个时候，开始非常重视这次机会，老老实实准备三面……</p>
+<h2 id="三面-50-分钟"><a href="#三面-50-分钟" class="headerlink" title="三面 50 分钟"></a>三面 50 分钟</h2><p>我的三面很奇怪，并没有问任何基础知识和项目细节，与其说是面试，不如说是唠家常。看之前学长学姐以及同届同学的面经，三面都会问一些比较困难，但与实际应用场景有关的问题。我大意了，没有闪。</p>
+<p>开场自我介绍，接着就开始聊天，比如问了下我为什么下学期时间那么多，问我平常专业课都学了些什么。</p>
+<p>这位面试官根本不问我细节的问题，第一个正经的问题是问我平常什么 <code>app</code> 用得最多。我当时听到这个问题真的心脏骤停了。很难想象，我的手机里一个字节的 <code>app</code> 都没有……没错，无论是我面的头条，还是抖音、西瓜、火山、飞书、皮皮虾、轻颜等等，别说用了，我一个都没下载过。于是我哆哆嗦嗦地问了句 “电脑上的应用软件，或者说网页应用算吗”。面试官说都算在一起。我如释重负，开始和面试官谈 <code>GitHub</code> 在团队管理功能上的缺点。</p>
+<p>在我介绍了我写的几个项目之后，面试官问我为什么会写那些项目。由于这个问题已经被问过很多次了，所以我也答得比较顺利——“我平常会观察其他学校甚至说其他国家的同专业学生，看他们在学习我所学习的课程时完成的作业和项目。我通过这个方法，了解到了许多我们学校由于课时、资源等原因未能开展的课题。所以我在课余时间会学习一些本校课本之外但我觉得却十分必要的知识。学习理论是极其重要的，理论在计算机领域内能起到非常重要的作用，但是实践也极有价值，必要的实践可以巩固理论基础。我的每个小项目都有不同的地方，我在设计实现每个项目的时候，都希望自己可以学到一点新的东西。我是真的热爱，并在不停地探索，这应该是我比较不同的地方。”</p>
+<p>面试官之后试探性问了下我写的项目有没有人用，我坦白说大多没什么人用。面试官接着问我为什么能够坚持写没有人用的项目。我觉得这个问题我答得特别好，我说：“我打心底愿意为其他人写代码，愿意用我的代码帮助其他人。其实我的项目不能说 ‘完全没有人用’。无论是我暑假抽空写的数论 / 密码学计算器，还是反汇编脚本，都还算有一些用户，并且我也知道，我的项目在某种程度上帮助到了他们。哪怕我写了 1000 行代码，只要有一个用户觉得好用，或者说他觉得不好用，但我基于他的建议改进后让他满意，那我也觉得一切都值得。”</p>
+<p>随后面试官问了几个通用技能问题。比较有意思的是问我 “一篇好的文档应该由几部分组成”。我先叙述了我认为的广义上的文档是什么，然后用当时能想到的所有分类方法叙述了一遍，比如对内文档和对外文档；代码注释和代码外文档；文字、图片和视频等等。拿文字文档举例，当时我说的就是 <code>Intro / Feature / Usage / Build / Example / Version / ChangeLog / Contributor</code> 这些组成部分。最后问我 “有没有利用注解自动生成过文档”，我觉得这问的太明显了，随便说了个 <code>Swagger UI</code>，最后我表达了下自己对这类文档生成工具的鄙视。</p>
+<p>总共前面问了我 28 分钟，然后给我出了一道经典的 <code>leetcode hard</code>。很可惜我没做出来。</p>
+<p>总的来说有这些问题：</p>
+<ul>
+<li>家常：平常用得最多的应用是什么？用的时候觉得它最大的缺陷是什么？你作为使用者，是如何规避这个缺陷对你带来的影响的？</li>
+<li>项目：为什么会写这些项目？项目使用人数多吗？如果没有人用，你为什么要坚持写这些小项目？你一直以来的动力是什么？</li>
+<li>项目：做项目的时候写文档吗？觉得文档最重要的是什么？文档应该由几个部分组成？读过哪些优秀的文档？它们的特点是什么？有没有用 <code>Java</code> 注解生成过 <code>api</code> 文档呢？</li>
+<li>项目：做项目的时候写测试吗？测试都有哪些方法？</li>
+<li>算法：二叉树的最大路径和。</li>
+</ul>
+<p>当时觉得自己凉了。觉得面试官就是想 “劝退” 我——先问一些没有区分度、写过项目就能回答上来的问题，然后再来一道我做不出来（其实是我太菜了）的算法题。</p>
+<p>一面是面试官当面告诉我结果，二面是过了不到一个小时就有回复。而三面结束后，我隔了两个小时给 <code>HR</code> 打了个电话，却被告知 “大概 3 到 5 个工作日” 会出结果。很明显我凉了。</p>
+<p>当天晚上，我躺在床上，心里没想什么人生，没想什么未来，只是想着 “终于可以回家了”。夏令营结束，实习面试也结束，整个 7 月着实让我 <code>exhausted</code>，哪怕回家待不了几天，那也回去待一会儿吧。等到拒信明确，我再找我爸商量机票的事儿。</p>
+<p>但谁成想一觉醒来，洗了个澡，我三面就过了。</p>
+<h2 id="HR-面-65-min"><a href="#HR-面-65-min" class="headerlink" title="HR 面 65 min"></a>HR 面 65 min</h2><p>我非常诚实，这 65 分钟没说半句假话。</p>
+<p>我自认为把一些正常来说难以想象、难以实践的事情，在这几轮面试里做了个遍：</p>
+<ul>
+<li>调一面时间，我直接问 <code>HR</code>，之前没约一面时间，所以面试时间可不可以调到 14 分钟之后；</li>
+<li>调二面时间，网站上给出的时间段我全在夏令营，干脆打电话给 <code>HR</code> 调到周五下午 5 点这种不可能有人面试的时间；</li>
+<li>鸽三面，我把时间记错了；</li>
+<li>鸽了之后调三面时间，跟 <code>HR</code> 商量能不能再给我次机会；</li>
+<li>调好之后发现时间有冲突，没过几分钟又给 <code>HR</code> 打电话调时间；</li>
+<li>三面结束后迫不及待给 <code>HR</code> 打电话问自己过没过。</li>
+</ul>
+<p>但这些再怎么离谱，我觉得都不如 <strong>65 分钟的 HR 面没说半句假话</strong>。</p>
+<p>面试时，我的求生欲是源自内心的、对车补餐补的疑问是源自内心的、对请假流程的试探是源自内心的、对自己性格 / 经历 / 未来发展方向的回答也是源自内心的。我是个怎样的人，我展现出来的就是一个怎样的人。</p>
+<p>当时自然觉得自己很帅。但正因为我说的都是一点都没有包装的大实话，所以现在反而担心 <code>HR</code> 面把我挂了。（啊这</p>
+<p>需要注意的是，嘉定校区离字节太远了，通勤时间非常长，据 <code>HR</code> 所说来回就是 3 个小时。所以 <code>HR</code> 很有可能会问 “是否已经确定好住处”，好像听起来 “是否确定住处” 和 “发 <code>offer</code>” 还是有一定关系的，这有些让我感到迷惑。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/skyleaworlder" target="_blank" rel="noopener">skyleaworlder</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://skyleaworlder.github.io/2021/07/28/ByteDance-Interview/" target="_blank" rel="noopener">https://skyleaworlder.github.io/2021/07/28/ByteDance-Interview/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%97%A5%E5%B8%B8/">日常</a><a class="post-meta__tags" href="/tags/%E7%94%9F%E6%B4%BB/">生活</a><a class="post-meta__tags" href="/tags/%E5%AE%9E%E4%B9%A0/">实习</a></div><div class="post_share"><div class="social-share" data-image="http://image.mamicode.com/info/201707/20180110235130200474.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/06/28/Hallucination/"><img class="next-cover" src="https://img2.secretchina.com/pic/2017/7-3/p1904541a693737299-ss.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">幻觉</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/06/02/Advice-to-Me-1000-days-ago/" title="写给 1000 天前的我（爹味过重，慎点）"><img class="cover" src="https://skyleaworlder.github.io/2021/06/02/Advice-to-Me-1000-days-ago/cover.png"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-02</div><div class="title">写给 1000 天前的我（爹味过重，慎点）</div></div></a></div><div><a href="/2020/08/26/newTheme/" title="New Theme! 终于换好看的主题了"><img class="cover" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=169677197,1739806802&fm=26&gp=0.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-26</div><div class="title">New Theme! 终于换好看的主题了</div></div></a></div><div><a href="/2020/11/09/card-banned/" title="我卡解封了！"><img class="cover" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1604930398373&di=35bcc1bef9d5ce96a1bff2882b869c09&imgtype=0&src=http%3A%2F%2Fp2.ssl.cdn.btime.com%2Ft011c4db44ebdfdd81f.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-09</div><div class="title">我卡解封了！</div></div></a></div><div><a href="/2021/01/27/thinking-night/" title="夜思 (1)"><img class="cover" src="/img/cover/luka.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-27</div><div class="title">夜思 (1)</div></div></a></div><div><a href="/2021/06/28/Hallucination/" title="幻觉"><img class="cover" src="https://img2.secretchina.com/pic/2017/7-3/p1904541a693737299-ss.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-06-28</div><div class="title">幻觉</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By skyleaworlder</div><div class="framework-info"><span>Framework </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">Hello! This is <a href="https://github.com/skyleaworlder" target="_blank" rel="noopener">skyleaworlder</a>...</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '47acdb8cdd05067e5096',
+      clientSecret: '772acc69515bf271c73913a6b3c42de3508a6dd5',
+      repo: 'skyleaworlder.github.io',
+      owner: 'skyleaworlder',
+      admin: ['skyleaworlder'],
+      id: '94648d9f15ff02fa387014c2633bd43b',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: true,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><canvas class="fireworks"></canvas><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+document.body.addEventListener('input', POWERMODE);
+</script></div></body></html>
