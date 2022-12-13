@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>抽象与高阶 | 遐想的空中宫殿</title><meta name="description" content="我自然辩证法的期末作业"><meta name="keywords" content="玄学"><meta name="author" content="skyleaworlder"><meta name="copyright" content="skyleaworlder"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/img/skyleaworlder.png"><link rel="canonical" href="http://yoursite.com/2022/12/13/Abstract-and-HighOrder/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="抽象与高阶"><meta property="og:url" content="http://yoursite.com/2022/12/13/Abstract-and-HighOrder/"><meta property="og:site_name" content="遐想的空中宫殿"><meta property="og:description" content="我自然辩证法的期末作业"><meta property="og:image" content="http://yoursite.com/img/cover/luka.jpg"><meta property="article:published_time" content="2022-12-13T08:02:24.000Z"><meta property="article:modified_time" content="2022-12-13T08:34:07.071Z"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.1',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  bookmark: {
+    message_prev: 'Press',
+    message_next: 'to bookmark this page'
+  },
+  runtime: '',
+  date_suffix: {"one_hour":"Just","hours":"hours ago","day":"days ago"},
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+    },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2022-12-13 16:34:07'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
+
+var autoChangeMode = 'false'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/skyleaworlder.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">40</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">35</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#导言"><span class="toc-number">1.</span> <span class="toc-text">导言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抽象"><span class="toc-number">2.</span> <span class="toc-text">抽象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高阶"><span class="toc-number">3.</span> <span class="toc-text">高阶</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(/img/cover/luka.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">遐想的空中宫殿</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">抽象与高阶</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-12-13T08:02:24.000Z" title="Created 2022-12-13 16:02:24">2022-12-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-12-13T08:34:07.071Z" title="Updated 2022-12-13 16:34:07">2022-12-13</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">3.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>9min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p>（大概是准备保研的时候，我看到了 <a href="https://github.com/Ray-Eldath" target="_blank" rel="noopener">Ray-Eldath</a> 佬的有关计算机重要思想的 blog：<a href="https://ray-eldath.me/programming/three-important-ideas/" target="_blank" rel="noopener">计算机领域的三个重要思想：抽象，分层和高阶</a>。我其实没一句一句读完，我甚至只看了这个标题就没看了。这次期末要求交一个有关  “专业/学科中涉及的一项基本的概念问题或方法论问题”  的小论文，我就写了一个类似的题目）</p>
+<p>（我只写了抽象和高阶两个概念，因为我觉得分层不如这两个重要。以我比较粗浅的视角看来，这三个概念里面最重要的是抽象，其次是高阶，再次是分层。但我觉得分层不适合与前两者放在一起讨论，正如高阶同样不适合与抽象一起讨论一样）</p>
+<p>（由于作业面向的对象是马院的老师，所以举的例子或许由于考虑到马院老师的知识面而难以足够恰当，不过怎么说呢，写完我这个作业之后我还是没有去看 <a href="https://github.com/Ray-Eldath" target="_blank" rel="noopener">Ray-Eldath</a> 佬的那篇文章，所以我可能写得没有那么好。并且写的时候我感觉到有很多概念我也是讲不清楚的，写得挺差的，而且通篇都是废话）</p>
+<p>（回重庆之后应该会更一篇年终总结，不过没人看就是了。最好是没人看，我要好好吐槽一下我这失败的一年，太失败了）</p>
+<h2 id="导言"><a href="#导言" class="headerlink" title="导言"></a>导言</h2><p>与数学的发展依靠特定场景与已有结论推演新结论、物理的发展依靠对自然界现象进行解释不同，计算机科学作为一门应用科学发展至今，繁杂的研究方向与庞大的涉猎范围很难不会令许多人对该学科的发展路线或发展基础感到困惑。当谈论计算机科学时，硬件系统设计、分布式理论、软件工程、编译原理、算法、计算机视觉、图形学等一系列 “你中有我，我中有你” 的研究领域交错纵横，却又统称在计算机科学这一宏大概念之下。正如鲜有自然语言处理科学家熟悉UI框架渲染管线，也鲜有处理器设计者掌握API网关的设计，各领域隔行如隔山，互相之间有所交叉但又应用截然不同的分析工具。然而纵使如此，同在计算机领域之下，各个领域一定存在着共用的学科基础——虽然在日常使用中被隐藏，但却在幕后扮演着重要角色。</p>
+<p>本文的讨论涉及两个贯穿计算机科学的重要概念—— “抽象” 与 “高阶” ，并结合现实讨论二概念在各领域的广泛应用。</p>
+<h2 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h2><p>计算机的发展历史是 20 世纪后人类将解决问题方法应用于计算机系统的历史。通用图灵机概念于 1936 年提出，世界第一台通用计算机 ENIAC 于 1946 年诞生，时至今日，各类型计算机相继经历蓬勃发展时期。然而，纵观历史可知，不仅创造计算机的物理基础非计算机科学家铸造，创造计算机的重要思想同样并非计算机科学家首创。</p>
+<p>计算机科学以 “复杂的应用数学” 为部分主要内容。来自数学各领域的概念，诸如幺元、不动点、闭包等，在计算机科学蓬勃发展的 20 世纪，为理论计算机科学的发展提供了数理基础。作为归纳并简化问题的强有力武器——抽象思想一直以来在数学各个领域占据极其重要的地位。</p>
+<p>回到数学发展的早期，数学通常作为解决具体问题的工具而存在。原始人使用结绳记事辅助生活是数学应用于语言表达；使用算筹计数是数学应用于统计；有意识使用探索到的规律建造大规模建筑物是数学应用于工程计算。当数学或生活的需求发展到一定水平时，人类发现了归纳总结问题的重要性。为对已有问题进行归纳总结，人类建立了诸多沿用至今的数学基本概念。以初等数学为例，其中定义的自然数集 $N$、有理数集 $Q$、实数集 $R$ 等为问题中的数字进行约束或限定，用以更准确地描述问题或求解方案的应用范围；而函数则将运算按照约束或限定进行组合，用于准确刻画问题特征、辅助问题表述或描述问题求解过程。</p>
+<p>在人类对问题进行归纳总结时，抽象思想应运而生。上述两则初等数学中的示例虽然不是 “抽象” 这一概念的来源，但却展现了抽象思想的重要表现之一——组合不同单元后抽取单元间的共同性质，并以该性质作为统一概括此类 “组合” 的方式：各类实用集合是将各个离散的数字 “抽象” ，得到用于描述数字的概念；函数则是将具备统一特征但碎片化的运算步骤 “抽象” ，得到用于描述过程的概念。因此，抽象是概括共同特征、抽象是选择有利特征、抽象是屏蔽除共性外所有特征、抽象是明确问题的方法论。抽象的使用与人类对抽象能力的发展，看似对世界的认识停留在世界的诸多剖面上，实则是以无数剖面多角度理解世界，满足人类探索世界和解释世界的需求。</p>
+<p>在计算机体系结构领域，冯·诺依曼结构是目前应用最为广泛、影响最为深刻的一种。在冯·诺依曼结构中，处理器单元是包裹着无数用于指令运算电路的硬件结构；存储器是包裹着无数存储元的硬件结构。以抽象角度理解，处理器单元是在计算机体系结构中对基本指令运算部分的对外抽象，而存储器是对计算机存储单元的对外抽象。在软件设计模式领域，工厂模式是重要的建造者模式之一，其使用工厂方法包裹了构建示例的诸多情况。以抽象角度理解，工厂方法是类对外部暴露的用于构建示例的接口。在外部看来，只需要关心工厂方法调用约定，而非具体的构造过程。在密码学领域，SHA-256 是应用最为广泛的几种哈希算法之一，由于对数学（线性代数与抽象代数）与计算机的应用（硬件编程或软件语言），开发者通常用名字代替 SHA-256 的复杂实现以期在交流沟通中强调算法附带的性质的集合体，而非使用 “Ch” 、 “Ma” 、 “F” 等诸多生涩概念详细阐述该哈希算法的具体细节。</p>
+<p>抽象概念的应用不仅于此，抽象是人类认识万物的一种重要思维方式。在现实生活中，软件开发与开发者认识世界的方法与角度具有紧密联系。以抽象的视角看待 “人” ，人是一个包含了无数属性、能够进行无数行为的个体。将抽象的 “人” 放入特定环境中，可以削减不必要纳入考虑的属性与行为，得到适用于特定环境的对 “人” 的抽象。同理可知，对待原子可以用抽象视角定义关键参数，对待疾病传播可以用抽象削减无关影响。因此，抽象不仅是应用计算机各领域的重要概念，同时也是认识世界的重要方式。或者说，利用抽象概念发展计算机科学，就是在进一步认识世界并创造崭新的、原本不曾出现在世界上的抽象。</p>
+<h2 id="高阶"><a href="#高阶" class="headerlink" title="高阶"></a>高阶</h2><p>高阶思想一直以来在泛函分析、数理逻辑等应用领域占据重要地位。</p>
+<p>在常规使用环境中，高阶通常意为“函数的函数”或“算子的算子”。以函数 $f$ 为例，假定函数 $f$ 以 $x$ 为输入，$y$ 为输出，若 $x$ 的类型可能为函数或 $y$ 的类型可能为函数，则称 $f$ 是一个高阶函数。相较于输入与输出均为特定值的，定义于初等数学中的函数而言，高阶函数扩展了函数输入输出能力，以此增强了函数的表达能力。与此对应的，在使用函数作为问题描述方式或问题求解过程的领域中，高阶函数的引入定义了一套可应用于特定领域的通用语言，增强了对理论问题或实际问题的概括能力，进而提高了相应领域研究人员的生产水平。以抽象角度观察“高阶”，高阶概念是可被用作“抽象”抽象、“复合”抽象以及“拆解”抽象的强大工具：</p>
+<p>在计算机科学中，如果说抽象的引入使得计算机工作者获得了一般化问题的能力，那么高阶的引入就是赋予了计算机工作者“高度”一般化问题的能力。为说明高阶拥有的高度抽象能力，以“加法”与“乘法”操作为例，如若不存在高阶概念，仅使用抽象，我们可定义函数 $f$，其输入为实数 $x$ 与 $y$，返回 $x$ 与 $y$ 的和；再定义某函数  $g$ ，其输入为实数 $x$ 与 $y$，但返回 $x$ 与 $y$ 的积。在某种程度上，抽象作为将复数操作组合并暴露用户以调用约定的概念，在其产生的黑盒内部，各操作都是固定不变的，仅有暴露给用户的输入接口能够将数据传入黑盒使之运作。上述过程虽然完美地使用了抽象概念，但仍存在一些问题——其一，$f$ 与 $g$ 函数仅允许普通加法与乘法，不支持某些同样“使用”加法、乘法操作但不遵循实数域中加法、乘法操作的代数结构，如“模n加群”等；其二，$f$ 与 $g$ 函数仅允许传入实数，不支持某些同样“使用”加法、乘法但却不是实数的输入，如矩阵等。高阶允许函数传入函数，允许函数输出函数。在此基础上，利用高阶可以将“加法运算”或“乘法运算”作为函数参数传入函数。</p>
+<p>在计算机科学中，如果说抽象的引入使得计算机工作者获得了概括问题的能力，那么高阶的引入就是赋予了计算机工作者“拆解”抽象所概括的问题的能力。利用柯里化可以将具有 $n$ 个输入的函数转化为 $n$ 阶高阶函数。相较于抽象可以将多个操作组合为一个黑盒，而柯里化可以将多个操作重新拆解并提供多层抽象。定义函数 $g$ ，其输入为实数 $x$ 与 $y$，返回 $x$ 与 $y$ 的积。使用柯里化可将函数 $g$ 转化为输入实数 $x$ 但返回新函数 $h$ 的高阶函数，此处新函数 $h$ 是一个输入 $y$ 但返回 $y$ 与新函数于上下文捕捉到的 $x$ 的积的一阶函数。利用柯里化可将任意函数转化为输入参数个数为 1 的高阶函数，以抽象的角度看待，这是一种对函数特征的“抽象”，是对函数的一种新的认识角度。</p>
+<p>柯里化只是高阶思想应用于数学与计算机科学交集中的一种简单表现形式，但由此可知高阶将普通的抽象带到了一个新的层次。带我入门计算机的老师曾在他的《高级语言程序设计》课上说过：“人理解迭代，神理解递归”。仿照这类句式，我认为“人理解抽象，神理解高阶”。但这并非是将“抽象”与“高阶”完全分离看待，正如上文中“人所理解的”迭代只是“神所理解的”递归的某一种特殊版本的演化形式，抽象与高阶的关系虽并非如此，但也具备“二者并非毫无关联”的特征。在我看来，高阶扩展了基本抽象的方式，同时抽象思想作用于高阶可使其具备更符合人类一般认知的调用约定。引入高阶概念后，抽象仍旧是抽象，但扩展后的抽象能够归纳概括的范围更广了；引入抽象概念后，高阶仍旧保持着高阶的原本概念，但通常用于设计大型系统的抽象思想能够使单纯的高阶应用于更广阔的领域。这两种思想的结合有助于扩展计算机工作者对问题的求解思路和对求解方案的设计方式。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://github.com/skyleaworlder" target="_blank" rel="noopener">skyleaworlder</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://skyleaworlder.github.io/2022/12/13/Abstract-and-HighOrder" target="_blank" rel="noopener">https://skyleaworlder.github.io/2022/12/13/Abstract-and-HighOrder</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%8E%84%E5%AD%A6/">玄学</a></div><div class="post_share"><div class="social-share" data-image="/img/cover/luka.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/12/03/about-what/"><img class="next-cover" src="/img/cover/luka.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">对一些无聊琐事的看法</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By skyleaworlder</div><div class="framework-info"><span>Framework </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">Hello! This is <a href="https://github.com/skyleaworlder" target="_blank" rel="noopener">skyleaworlder</a>...</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '47acdb8cdd05067e5096',
+      clientSecret: '772acc69515bf271c73913a6b3c42de3508a6dd5',
+      repo: 'skyleaworlder.github.io',
+      owner: 'skyleaworlder',
+      admin: ['skyleaworlder'],
+      id: '3fab00fbca6339cdd46fbd662150f437',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: true,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js', initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><canvas class="fireworks"></canvas><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+document.body.addEventListener('input', POWERMODE);
+</script></div></body></html>
